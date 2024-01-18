@@ -1,0 +1,33 @@
+{
+  "routes": [
+    "/",
+    "/accounts",
+    "/accounts/account",
+    "/associates",
+    "/associates/associates",
+    "/associates/register-associate",
+    "/auth",
+    "/auth/login",
+    "/auth/recovery-password",
+    "/auth/register",
+    "/auth/verify-account",
+    "/clients",
+    "/clients/clients",
+    "/clients/register-client",
+    "/collaborators",
+    "/collaborators/collaborator",
+    "/configurations",
+    "/configurations/delivery-areas",
+    "/configurations/materials",
+    "/configurations/materials/detail",
+    "/configurations/micro-routes",
+    "/configurations/routes",
+    "/configurations/vehicles",
+    "/configurations/vehicles/register",
+    "/configurations/warehouses",
+    "/dashboard",
+    "/materials-recovery",
+    "/materials-recovery/all-materials",
+    "/materials-recovery/register-material"
+  ]
+}
