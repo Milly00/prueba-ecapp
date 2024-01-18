@@ -1,0 +1,183 @@
+<app-breadcrumb [title]="'Juan Perez Lozano'" [subtitle]="'Información del Cliente'"></app-breadcrumb>
+  
+<mat-card class="cardWithShadow theme-card">
+   
+    <mat-card-content class="b-t-1">
+        <div class="row p-20">
+            <div class="col">
+                <form class="m-t-24" [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Datos Básicos</ng-template>
+                    <div class="row justify-content-between">
+                        <!-- input -->
+                        <div class="col-lg-3">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Nombre
+                            </mat-label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <input placeholder="Nombre" matInput formControlName="name" required />
+                                <mat-hint *ngIf="f['name'].touched && f['name'].invalid" class="m-b-16 error-msg">
+                                    <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['required']">
+                                        Este campo es obligatorio.
+                                    </div>
+                                    <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['minlength'] ">
+                                        Debe tener mínimo 6 caracteres.
+                                    </div>
+                                    <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['pattern']">
+                                        Solo acepta caracteres alfanúmericos.
+                                    </div>
+ 
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <!-- select -->
+                        <div class="col-lg-3 m-b-16">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tipo de Identificación
+                            </mat-label>
+                            <mat-form-field appearance="outline" class="w-100 hide-hint">
+                                <mat-label>Tipo de Identificación</mat-label>
+                                <mat-select formControlName="typeIdentity" required [value]="selectedIdentity">
+                                  <mat-option *ngFor="let item of typesIdenity" [value]="item.status"
+                                    selected>{{item.status}}</mat-option>
+                
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-3 m-b-16">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tipo de Cliente
+                            </mat-label>
+                            <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                                <mat-label>Tipo de Cliente</mat-label>
+                                <mat-select placeholder="Tipo de Cliente" >
+                                  <mat-option *ngFor="let item of typesClient" [value]="item" selected>{{ item.status
+                                    }}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-lg-3">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Identificación
+                            </mat-label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <input placeholder="No Identificación" matInput formControlName="identity" required />
+                                <mat-hint *ngIf="f['identity'].touched && f['identity'].invalid"
+                                    class="m-b-16 error-msg">
+                                    <div class="text-error"
+                                        *ngIf="f['identity'].errors && f['identity'].errors['required']">
+                                        Este campo es obligatorio.
+                                    </div>
+                                    <div class="text-error"
+                                        *ngIf="f['identity'].errors && f['identity'].errors['minlength'] ">
+                                        Debe tener mínimo 6 caracteres.
+                                    </div>
+                                    <div class="text-error"
+                                        *ngIf="f['identity'].errors && f['identity'].errors['pattern']">
+                                        Solo acepta caracteres númericos.
+                                    </div>
+
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        
+
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-lg-4">
+                            <!-- input -->
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">No. Teléfono
+                            </mat-label>
+                            <mat-form-field  appearance="outline" class="w-100">
+                                <input placeholder="No Teléfono" matInput formControlName="name" required type="text" />
+                                <mat-hint *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid" class="m-b-16 error-msg">
+                                    <div class="text-error" *ngIf="f['phoneNumber'].errors && f['phoneNumber'].errors['required']">
+                                        Este campo es obligatorio.
+                                    </div>
+                                    <div class="text-error" *ngIf="f['phoneNumber'].errors && f['phoneNumber'].errors['minlength'] ">
+                                        Debe tener mínimo 4 caracteres.
+                                    </div>
+                                    <div class="text-error" *ngIf="f['phoneNumber'].errors && f['phoneNumber'].errors['pattern']">
+                                        Solo acepta caracteres alfabéticos.
+                                    </div>
+
+                                </mat-hint>
+                            </mat-form-field>
+                            <!-- input -->
+
+                        </div>
+                        <div class="col-lg-4">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Correo electrónico
+                            </mat-label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <input matInput placeholder="Correo electrónico" formControlName="email" required type="text" />
+                                <mat-hint *ngIf="f['email'].touched && f['email'].invalid" class="m-b-16 error-msg">
+                                    <div class="text-error"
+                                        *ngIf="f['email'].errors && f['email'].errors['required']">
+                                        Este campo es obligatorio.
+                                    </div>
+                                    <div class="text-error"
+                                        *ngIf="f['email'].errors && f['email'].errors['minlength'] ">
+                                        Debe tener mínimo 4 caracteres.
+                                    </div>
+                                    <div class="text-error"
+                                        *ngIf="f['email'].errors && f['email'].errors['pattern']">
+                                        Ingrese un email válido.
+                                    </div>
+
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Sector Industrial
+                            </mat-label>
+                            <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                                <mat-label>Sector Industrial</mat-label>
+                                <mat-select formControlName="industrySector" placeholder="Sector Industrial" >
+                                  <mat-option *ngFor="let item of sectorIndustries" [value]="item" selected>{{ item.status
+                                    }}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                       
+                        
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-lg-4 m-b-16">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Ciudad
+                            </mat-label>
+                            <app-modal-cities></app-modal-cities>
+                        </div>
+                        <div class="col-lg-4 m-b-16">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Bodega
+                            </mat-label>
+                            <app-modal-warehouses></app-modal-warehouses>
+                        </div>
+                        <div class="col-lg-4">
+                            <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Dirección
+                            </mat-label>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <input placeholder="Dirección" matInput formControlName="address" required type="text" />
+                                <mat-hint *ngIf="f['address'].touched && f['address'].invalid" class="m-b-16 error-msg">
+                                    <div class="text-error"
+                                        *ngIf="f['address'].errors && f['address'].errors['required']">
+                                        Este campo es obligatorio.
+                                    </div>
+                                    <div class="text-error"
+                                        *ngIf="f['address'].errors && f['address'].errors['minlength'] ">
+                                        Debe tener mínimo 4 caracteres.
+                                    </div>
+                                    <div class="text-error"
+                                        *ngIf="f['address'].errors && f['address'].errors['pattern']">
+                                        Solo acepta caracteres alfanúmericos.
+                                    </div>
+
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button mat-flat-button color="primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

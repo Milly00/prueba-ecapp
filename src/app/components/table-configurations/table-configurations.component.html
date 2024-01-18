@@ -1,0 +1,80 @@
+<mat-card-content>
+    <div class="table-responsive m-t-30">
+        <table mat-table [dataSource]="data" class="w-100">
+            <!-- Position Column -->
+            <ng-container *ngFor="let item of displayedColumns2" [matColumnDef]="item">
+                <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 mat-subtitle-1 p-l-0">
+                    {{item | nameColumnTable}}
+                </th>
+                <td mat-cell *matCellDef="let element" class="p-l-0">
+
+                    <div class="d-flex align-items-center">
+                        
+                        <img *ngIf="item === 'img'" [src]="element[item]" alt="users" width="48" class="rounded" />
+                        <div class="m-l-16">
+                            <h6 *ngIf="item !== 'operationStartDate' && item !== 'img' && item !== 'valuePaid'" class="f-s-14 mat-subtitle-1 ">
+                                {{ element[item] }}
+                            </h6>
+
+                            <h6 *ngIf="item === 'operationStartDate'" class="f-s-14 mat-subtitle-1 ">
+                                {{ element[item] | date }}
+                            </h6>
+
+                            <h6 *ngIf="item === 'total' || item === 'valuePaid'" class="f-s-14 mat-subtitle-1 ">
+                                {{ element[item] | number }}
+                            </h6>
+                            <!--
+                            <span class="mat-body-1 f-s-12">
+                                {{ element[item] }}
+                            </span>-->
+                        </div>
+                        <a *ngIf="item === 'action'" role="button" aria-disabled="true" (keyup.enter)="EditConfigurations(element)" (click)="EditConfigurations(element)"
+                            class="m-r-10 cursor-pointer">
+                            <i-tabler name="eye" class="icon-18"></i-tabler>
+                        </a>
+                        <a *ngIf="item === 'delete'" role="button" aria-disabled="true" (keyup.enter)="DeleteElement(element)" (click)="DeleteElement(element)"
+                            class="m-r-10 cursor-pointer">
+                            <i-tabler name="trash" class="icon-18"></i-tabler>
+                        </a>
+                    </div>
+                </td>
+
+            </ng-container>
+            <!--
+            <!-- Name Column -/->
+            <ng-container matColumnDef="cityId">
+                <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 mat-subtitle-1">
+                    Ciudad
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-body-1">
+                    {{ element.cityId }}
+                </td>
+            </ng-container>
+
+           
+            <!-- Symbol Column -/->
+            <ng-container matColumnDef="operationStartDate">
+                <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 mat-subtitle-1">
+                    Inicio Operación
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-body-1">
+                    {{ element.operationStartDate }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 mat-subtitle-1">
+                    Acción
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-body-1">
+                    <a (click)="EditConfigurations(element.code)" class="m-r-10 cursor-pointer">
+                        <i-tabler name="eye" class="icon-18"></i-tabler>
+                    </a>
+                </td>
+
+            </ng-container>-->
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+        </table>
+    </div>
+</mat-card-content>

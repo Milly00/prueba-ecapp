@@ -1,0 +1,183 @@
+<h2 class="f-w-500 m-b-24 text-center" mat-dialog-title><strong>Agregar Bodega</strong></h2>
+
+<mat-dialog-content class="mat-typography">
+    <div class=" row relative z-10" style="overflow-x: hidden;" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
+        <form [formGroup]="registerFormGroup">
+            <div class="row">
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input type="text" autocomplete="off" matInput required id="name" name="name" placeholder="Nombre de Bodega" />
+                        <mat-hint *ngIf="f['name'].touched && f['name'].invalid" class="m-b-16 error-msg">
+                            <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['required']">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['minlength'] ">
+                                Debe tener mínimo 4 caracteres.
+                            </div>
+                            <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['pattern']">
+                                Solo acepta caracteres alfabéticos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input formControlName="code" type="text" matInput required id="code" name="code"
+                            placeholder="Código Bodega" />
+                        <mat-hint *ngIf="f['code'].touched && f['code'].invalid" class="m-b-16 error-msg">
+                            <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['required']">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['minlength'] ">
+                                Debe tener mínimo 6 caracteres.
+                            </div>
+                            <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['pattern']">
+                                Solo acepta caracteres alfanúmericos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100 hide-hint">
+                        <mat-select placeholder="Tipo de Bodega" formControlName="warehouseType" required [value]="''">
+                            <mat-option *ngFor="let item of warehouseTypes" [value]="item" selected>{{ item
+                                }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Fecha de Operación</mat-label>
+                        <input formControlName="date" [matDatepicker]="picker" placeholder="Inicio de Operación"
+                            id="operationStartDate" name="operationStartDate" matInput required />
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input type="text" matInput required id="contactName" name="contactName"
+                            placeholder="Nombre de Contacto" />
+                        <mat-hint *ngIf="f['contactName'].touched && f['contactName'].invalid" class="m-b-16 error-msg">
+                            <div class="text-error"
+                                *ngIf="f['contactName'].errors && f['contactName'].errors['required']">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="text-error"
+                                *ngIf="f['contactName'].errors && f['contactName'].errors['minlength'] ">
+                                Debe tener mínimo 4 caracteres.
+                            </div>
+                            <div class="text-error"
+                                *ngIf="f['contactName'].errors && f['contactName'].errors['pattern']">
+                                Solo acepta caracteres alfabéticos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input placeholder="Teléfono de Contacto" matInput formControlName="phoneNumber" />
+                        <mat-hint *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid" class="m-b-16 error-msg">
+                            <div class="text-error"
+                                *ngIf="f['phoneNumber'].errors && f['phoneNumber'].errors['minlength'] ">
+                                Debe tener mínimo 4 caracteres.
+                            </div>
+                            <div class="text-error"
+                                *ngIf="f['phoneNumber'].errors && f['phoneNumber'].errors['pattern']">
+                                Solo acepta caracteres númericos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input formControlName="collaboratorId" type="text" matInput required id="collaboratorId"
+                            name="collaboratorId" placeholder="Colaborador" />
+                        <mat-hint *ngIf="f['collaboratorId'].touched && f['collaboratorId'].invalid"
+                            class="m-b-16 error-msg">
+                            <div class="text-error"
+                                *ngIf="f['collaboratorId'].errors && f['collaboratorId'].errors['required']">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="text-error"
+                                *ngIf="f['collaboratorId'].errors && f['collaboratorId'].errors['minlength'] ">
+                                Debe tener mínimo 4 caracteres.
+                            </div>
+                            <div class="text-error"
+                                *ngIf="f['collaboratorId'].errors && f['collaboratorId'].errors['pattern']">
+                                Solo acepta caracteres alfanúmericos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input type="text" matInput required id="lat" name="lat" placeholder="Latitud" />
+                        <mat-hint *ngIf="f['lat'].touched && f['lat'].invalid" class="m-b-16 error-msg">
+                            <div class="text-error" *ngIf="f['lat'].errors && f['lat'].errors['required']">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="text-error" *ngIf="f['lat'].errors && f['lat'].errors['minlength'] ">
+                                Debe tener mínimo 4 caracteres.
+                            </div>
+                            <div class="text-error" *ngIf="f['lat'].errors && f['lat'].errors['pattern']">
+                                Solo acepta caracteres númericos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <input type="text" matInput required id="lng" name="lat" placeholder="Longitud" />
+                        <mat-hint *ngIf="f['lat'].touched && f['lng'].invalid" class="m-b-16 error-msg">
+                            <div class="text-error" *ngIf="f['lng'].errors && f['lng'].errors['required']">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="text-error" *ngIf="f['lng'].errors && f['lng'].errors['minlength'] ">
+                                Debe tener mínimo 4 caracteres.
+                            </div>
+                            <div class="text-error" *ngIf="f['lng'].errors && f['lng'].errors['pattern']">
+                                Solo acepta caracteres númericos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <textarea placeholder="Dirección" rows="5" matInput formControlName="address"></textarea>
+                        <mat-hint *ngIf="f['address'].touched && f['address'].invalid" class="m-b-16 error-msg">
+
+                            <div class="text-error" *ngIf="f['address'].errors && f['address'].errors['minlength'] ">
+                                Debe tener mínimo 10 caracteres.
+                            </div>
+                            <div class="text-error" *ngIf="f['address'].errors && f['address'].errors['pattern']">
+                                Solo acepta caracteres alfanúmericos.
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4 class="text-center">Subir Documento</h4>
+                    <div  class="file-input-box justify-content-center"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+                        <input accept=".pdf , .png , .jpg" type="file" #fileInput (change)="selectFile($event)" />
+                        <div class="file-upload-content">
+                            <i-tabler class="icon-60 m-r-4" name="file-upload"></i-tabler>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6" mat-dialog-actions>
+            <button mat-dialog-close="true" color="primary" mat-raised-button type="button"
+                class="inline-flex w-full justify-center rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm  sm:ml-3 sm:w-auto ">Aceptar</button>
+            <button mat-dialog-close="true" color="warn" mat-stroked-button type="button"
+                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancelar</button>
+        </div>
+    </div>
+</mat-dialog-content>

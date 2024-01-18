@@ -1,0 +1,577 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Registro Asociado</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <mat-stepper [linear]="stepperLinear" #stepper [orientation]="(stepperOrientation | async)!">
+      <mat-step [stepControl]="firstFormGroup">
+        <form class="m-t-24" [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Datos Básicos</ng-template>
+          <div class="row justify-content-between">
+            <!-- input -->
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Código
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="code" required />
+                <mat-hint *ngIf="f['code'].touched && f['code'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['required']">
+                    Este campo es obligatorio.
+                  </div>
+                  <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['minlength'] ">
+                    Debe tener mínimo 6 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <!-- select -->
+            <div class="col-lg-4 m-b-16">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tipo de Identificación
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-select placeholder="Tipo de Identificación" formControlName="code" required [value]="selectedIdentity">
+                  <mat-option *ngFor="let item of typesIdenity" [value]="item.status"
+                    selected>{{item.status}}</mat-option>
+
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Identificación
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="identity" required />
+                <mat-hint *ngIf="f['identity'].touched && f['identity'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f['identity'].errors && f['identity'].errors['required']">
+                    Este campo es obligatorio.
+                  </div>
+                  <div class="text-error" *ngIf="f['identity'].errors && f['identity'].errors['minlength'] ">
+                    Debe tener mínimo 6 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f['identity'].errors && f['identity'].errors['pattern']">
+                    Solo acepta caracteres númericos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4  m-b-16">
+
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Ciudad
+              </mat-label>
+              <!--
+              <mat-form-field  appearance="outline" class="w-100 hide-hint">
+                <mat-label>Ciudad</mat-label>
+                <mat-select formControlName="city"  required [value]="selectedIdentity">
+                  <mat-option *ngFor="let item of cities" [value]="item"
+                    selected>{{item}}</mat-option>
+
+                </mat-select>
+              </mat-form-field>-->
+              <app-modal-cities (city)="getCity($event)"></app-modal-cities>
+            </div>
+
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-lg-4">
+              <!-- input -->
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Nombre
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="name" required type="text" />
+                <mat-hint *ngIf="f['name'].touched && f['name'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['required']">
+                    Este campo es obligatorio.
+                  </div>
+                  <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['minlength'] ">
+                    Debe tener mínimo 4 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['pattern']">
+                    Solo acepta caracteres alfabéticos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+              <!-- input -->
+
+            </div>
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Apellido
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="surname" required type="text" />
+                <mat-hint *ngIf="f['surname'].touched && f['surname'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f['surname'].errors && f['surname'].errors['required']">
+                    Este campo es obligatorio.
+                  </div>
+                  <div class="text-error" *ngIf="f['surname'].errors && f['surname'].errors['minlength'] ">
+                    Debe tener mínimo 4 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f['surname'].errors && f['surname'].errors['pattern']">
+                    Solo acepta caracteres alfabéticos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Fecha de Admisión
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="startDateDP" placeholder="Fecha de Admisión" name="startDate"
+                  formControlName="admisissionDate" />
+                <mat-datepicker-toggle matSuffix [for]="startDateDP"></mat-datepicker-toggle>
+                <mat-datepicker #startDateDP></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4  m-b-16">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Género
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-select placeholder="Genero" formControlName="gender" required [value]="gender">
+                  <mat-option *ngFor="let item of genders" [value]="item.status" selected>{{item.status}}</mat-option>
+
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="text-right">
+            <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form class="m-t-24" [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Datos Personales</ng-template>
+          <div class="row justify-content-between">
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Fecha de Nacimiento
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Admisión" name="birthDate"
+                  formControlName="birthDate" />
+                <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                <mat-datepicker #birthDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Teléfono
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="phoneNumber" />
+                <mat-hint *ngIf="f2['phoneNumber'].touched && f2['phoneNumber'].invalid" class="m-b-16 error-msg">
+
+                  <div class="text-error" *ngIf="f2['phoneNumber'].errors && f2['phoneNumber'].errors['minlength'] ">
+                    Debe tener mínimo 4 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f2['phoneNumber'].errors && f2['phoneNumber'].errors['pattern']">
+                    Solo acepta caracteres númericos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Correo Electrónico
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="email" />
+                <mat-hint *ngIf="f2['email'].touched && f2['email'].invalid" class="m-b-16 error-msg">
+
+                  <div class="text-error" *ngIf="f2['email'].errors && f2['email'].errors['minlength'] ">
+                    Debe tener mínimo 4 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f2['email'].errors && f2['email'].errors['pattern']">
+                    Ingrese un email correcto.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Dirección
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <textarea rows="5" matInput formControlName="address"></textarea>
+                <mat-hint *ngIf="f2['address'].touched && f2['address'].invalid" class="m-b-16 error-msg">
+
+                  <div class="text-error" *ngIf="f2['address'].errors && f2['address'].errors['minlength'] ">
+                    Debe tener mínimo 10 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f2['address'].errors && f2['address'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <h4 class="text-secondary">Datos del documento de identidad</h4>
+          </div>
+
+          <br>
+          <div class="row justify-content-between">
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Fecha de Expedición
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="issueDate" placeholder="Fecha de Expedición" name="issueDate"
+                  formControlName="issueDate" />
+                <mat-datepicker-toggle matSuffix [for]="issueDate"></mat-datepicker-toggle>
+                <mat-datepicker #issueDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col  m-b-16">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Ciudad de Expedición
+              </mat-label>
+              <app-modal-cities (city)="getCityExpedition($event)"></app-modal-cities>
+            </div>
+            <!-- input -->
+            <div class="col ">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Nacionalidad
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="nationality" />
+                <mat-hint *ngIf="f2['nationality'].touched && f2['nationality'].invalid" class="m-b-16 error-msg">
+
+                  <div class="text-error" *ngIf="f2['nationality'].errors && f2['nationality'].errors['minlength'] ">
+                    Debe tener mínimo 10 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f2['nationality'].errors && f2['nationality'].errors['pattern']">
+                    Solo acepta caracteres alfabeticos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <button mat-flat-button color="warn" matStepperPrevious>
+              Atrás
+            </button>
+            <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup">
+        <form class="m-t-24" [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Información Adicional</ng-template>
+          <div class="row">
+            <h4 class="text-secondary">Datos Personales</h4>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-lg-4 m-b-16">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16"> Estado Civil
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-select placeholder="Estado Civil" required [value]="maritalStatus">
+                  <mat-option *ngFor="let item of maritalsStatus" [value]="item.status"
+                    selected>{{item.status}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Familiar
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="relationShip" required />
+                <mat-hint *ngIf="f3['relationShip'].touched && f3['relationShip'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['relationShip'].errors && f3['relationShip'].errors['minlength'] ">
+                    Debe tener mínimo 10 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['relationShip'].errors && f3['relationShip'].errors['pattern']">
+                    Solo acepta caracteres alfabeticos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col-lg-4">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Teléfono
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="phoneNumber" required />
+                <mat-hint *ngIf="f3['phoneNumber'].touched && f3['phoneNumber'].invalid" class="m-b-16 error-msg">
+
+                  <div class="text-error" *ngIf="f3['phoneNumber'].errors && f3['phoneNumber'].errors['minlength'] ">
+                    Debe tener mínimo 6 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['phoneNumber'].errors && f3['phoneNumber'].errors['pattern']">
+                    Solo acepta caracteres númericos.
+                  </div>
+
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col-lg-4 m-b-16">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tipo de Vivienda
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-select placeholder="Tipo de Vivienda" required [value]="housingType">
+                  <mat-option *ngFor="let item of housingTypes" [value]="item.status"
+                    selected>{{item.status}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col m-b-16">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Nivel de Estudio
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-select placeholder="Nivel de Estudio" required [value]="educationLevel">
+                  <mat-option *ngFor="let item of educationLevels" [value]="item.status"
+                    selected>{{item.status}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- input -->
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">EPS
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="eps" required />
+                <mat-hint *ngIf="f3['eps'].touched && f3['eps'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['eps'].errors && f3['eps'].errors['minlength'] ">
+                    Debe tener mínimo 3 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['eps'].errors && f3['eps'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div><!-- input -->
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">AFP
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="afp" required />
+                <mat-hint *ngIf="f3['afp'].touched && f3['afp'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['afp'].errors && f3['afp'].errors['minlength'] ">
+                    Debe tener mínimo 3 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['afp'].errors && f3['afp'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <h4 class="text-secondary">Indumentaria</h4>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Talla Camisa
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="shirt" required />
+                <mat-hint *ngIf="f3['shirt'].touched && f3['shirt'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['shirt'].errors && f3['shirt'].errors['minlength'] ">
+                    Debe tener mínimo 2 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['shirt'].errors && f3['shirt'].errors['maxlength'] ">
+                    Debe tener máximo 4 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['shirt'].errors && f3['shirt'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Talla Pantalón
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="pants" required />
+                <mat-hint *ngIf="f3['pants'].touched && f3['pants'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['pants'].errors && f3['pants'].errors['minlength'] ">
+                    Debe tener mínimo 2 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['pants'].errors && f3['pants'].errors['maxlength'] ">
+                    Debe tener máximo 4 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['pants'].errors && f3['pants'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Talla Calzado
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="footwear" required />
+                <mat-hint *ngIf="f3['footwear'].touched && f3['footwear'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['footwear'].errors && f3['footwear'].errors['minlength'] ">
+                    Debe tener mínimo 2 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['footwear'].errors && f3['footwear'].errors['maxlength'] ">
+                    Debe tener máximo 4 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['footwear'].errors && f3['footwear'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <h4 class="text-secondary">Información Bancaria</h4>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Banco
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="bank" required />
+                <mat-hint *ngIf="f3['bank'].touched && f3['bank'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['bank'].errors && f3['bank'].errors['minlength'] ">
+                    Debe tener mínimo 2 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['bank'].errors && f3['bank'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tipo de Cuenta
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="accountType" required />
+                <mat-hint *ngIf="f3['accountType'].touched && f3['accountType'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f3['accountType'].errors && f3['accountType'].errors['minlength'] ">
+                    Debe tener mínimo 5 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['accountType'].errors && f3['accountType'].errors['pattern']">
+                    Solo acepta caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Número de Cuenta
+              </mat-label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="accountNumber" required />
+                <mat-hint *ngIf="f3['accountNumber'].touched && f3['accountNumber'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error"
+                    *ngIf="f3['accountNumber'].errors && f3['accountNumber'].errors['minlength'] ">
+                    Debe tener mínimo 5 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f3['accountNumber'].errors && f3['accountNumber'].errors['pattern']">
+                    Solo acepta caracteres númericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <button mat-flat-button color="warn" matStepperPrevious>
+              Atrás
+            </button>
+            <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Documentos</ng-template>
+        <div class="row">
+          <div class="col-sm-6 col-lg-4">
+            <mat-card class="cardWithShadow overflow-hidden">
+              <mat-card-header class="course-header d-flex justify-content-between">
+                <mat-card-title class="m-b-0 f-s-16">
+                  Foto Asociado
+                </mat-card-title>
+                <span class="d-flex align-items-center gap-4"><i-tabler name="clock"
+                    class="icon-16 d-flex"></i-tabler></span>
+              </mat-card-header>
+              <mat-card-content class="text-center p-y-24">
+                <div class="file-input-box"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+                  <input accept=".png, .jpg" type="file" #fileInput (change)="onFileSelected($event)" />
+                  <div class="file-upload-content">
+                    <i-tabler class="icon-60 m-r-4" name="camera-plus"></i-tabler>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <mat-card class="cardWithShadow overflow-hidden">
+              <mat-card-header class="course-header d-flex justify-content-between">
+                <mat-card-title class="m-b-0 f-s-16">
+                  Certificación Bancaria
+                </mat-card-title>
+                <span class="d-flex align-items-center gap-4"><i-tabler name="clock"
+                    class="icon-16 d-flex"></i-tabler></span>
+              </mat-card-header>
+              <mat-card-content class="text-center p-y-24">
+                <div class="file-input-box"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+                  <input accept=".png , .jpg , .pdf" type="file" #fileInput (change)="onFileSelected($event)" />
+                  <div class="file-upload-content">
+                    <i-tabler class="icon-60 m-r-4" name="file-upload"></i-tabler>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <mat-card class="cardWithShadow overflow-hidden">
+              <mat-card-header class="course-header d-flex justify-content-between">
+                <mat-card-title class="m-b-0 f-s-16">
+                  Documento de Identidad
+                </mat-card-title>
+                <span class="d-flex align-items-center gap-4"><i-tabler name="clock"
+                    class="icon-16 d-flex"></i-tabler></span>
+              </mat-card-header>
+              <mat-card-content class="text-center p-y-24">
+                <div class="file-input-box"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+                  <input accept=".png, .jpg , .pdf" type="file" #fileInput (change)="onFileSelected($event)" />
+                  <div class="file-upload-content">
+                    <i-tabler class="icon-60 m-r-4" name="pdf"></i-tabler>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <mat-card class="cardWithShadow overflow-hidden">
+              <mat-card-header class="course-header d-flex justify-content-between">
+                <mat-card-title class="m-b-0 f-s-16">
+                  Hoja de Vida
+                </mat-card-title>
+                <span class="d-flex align-items-center gap-4"><i-tabler name="clock"
+                    class="icon-16 d-flex"></i-tabler></span>
+              </mat-card-header>
+              <mat-card-content class="text-center p-y-24">
+                <div class="file-input-box"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+                  <input accept=".pdf" type="file" #fileInput (change)="onFileSelected($event)" />
+                  <div class="file-upload-content">
+                    <i-tabler class="icon-60 m-r-4" name="file-certificate"></i-tabler>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between m-t-16">
+          <button mat-flat-button color="warn" matStepperPrevious>Atrás</button>
+          <button mat-flat-button color="primary" (click)="stepper.reset()">Enviar</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-card-content>
+</mat-card>

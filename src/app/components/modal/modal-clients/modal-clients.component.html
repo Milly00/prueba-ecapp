@@ -1,0 +1,75 @@
+<mat-form-field appearance="outline" class="w-100 hide-hint primary" (click)="openModal()">
+    <mat-label>Cliente</mat-label>
+    <input readonly="true" matInput [value]="valueClient" />
+    <mat-icon matSuffix>
+        <i-tabler name="user-star" class="icon-20"></i-tabler>
+    </mat-icon>
+</mat-form-field>
+<div *ngIf="opened === true" class="modal-client">
+    <div class="modal-client-content">
+        <div class="row p-20">
+            <div class="col">
+                <h3 class="modal-client-content__title-modal">Clientes</h3>
+            </div>
+            <div class="col end modal-client-content__icon">
+                <i-tabler (click)="openModal()" name="x" class="icon-24"></i-tabler>
+            </div>
+        </div>
+        <div class="row p-16">
+            <div class="col">
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="Buscar Clientes" [formControl]="searchTerm" />
+                    <mat-icon matSuffix>
+                        <i-tabler name="search" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row  modal-client-content__card-delivery">
+            <div class="col">
+                <ng-scrollbar class="position-relative" style="height:calc(100vh - 200px)">
+                    <div scrollViewport class="row  modal-client-content__card-client__body"
+                        *ngFor="let client of filterClient">
+                        <mat-card style="margin: 5px 30px;" class="cardWithShadow ">
+                            <mat-card-content>
+                                <div class="d-flex align-items-center m-10">
+                                    <h6 class="f-s-14 mat-subtitle-1 f-w-600 ">
+                                        {{ client.name }}
+                                    </h6>
+                                </div>
+                                <div class="d-flex align-items-center m-10">
+                                    <!--
+                                        <img [src]="areas.imageArea" alt="users" width="48" class="rounded" />
+                                       -->
+                                    <div class="p-r-16">
+
+
+                                        <div class="row m-l-6">
+
+                                            <span class="mat-body-1 f-s-12 m-l-16">
+                                                <i-tabler name="building-factory" class="icon-14 m-r-4"></i-tabler>
+                                                {{ client.industrySector }}
+                                            </span>
+                                            <span class="mat-body-1 f-s-12 m-l-16">
+                                                <i-tabler name="users-group" class="icon-14 m-r-4"></i-tabler>
+                                                {{ client.clientType }}
+                                            </span>
+                                            <span class="mat-body-1 f-s-12 m-l-16">
+                                                <i-tabler name="home-link" class="icon-14 m-r-4"></i-tabler>
+                                                {{ client.address }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button color="basic" style="box-shadow: none;" (click)="sendClients(client)"
+                                        mat-mini-fab class="m-l-auto">
+                                        <i-tabler color="primary" name="circle-plus" class="icon-18"></i-tabler>
+                                    </button>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>

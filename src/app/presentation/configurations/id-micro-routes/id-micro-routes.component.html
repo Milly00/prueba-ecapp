@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-sm-5">
+    <mat-card class="cardWithShadow card2 position-relative card-hover cursor-pointer">
+      <img mat-card-image src="/assets/images/profile/user-1.jpg" alt="Photo of a Shiba Inu" />
+      <mat-card-content class="p-y-24">
+        <div class="row d-flex align-items-center justify-content-center m-t-24">
+          <div class="col">
+            <div class="m-t-24">
+              <div class="file-input-box"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+                <input type="file" #fileInput />
+                <button mat-flat-button color="primary" class="m-r-8">
+                  Subir
+                </button>
+              </div>
+            </div>
+            <span class="f-s-14 m-t-24 d-block">Válido JPG o PNG. Tamaño máximo de 800K</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-sm-6">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-y-24">
+        <mat-card-title class="mat-headline-6 m-t-15 p-14 d-flex">
+          <h4> MRT 123456</h4> <mat-chip
+            class="f-s-12 m-y-16 f-w-600 bg-success m-auto justify-content-end">Activa</mat-chip>
+        </mat-card-title>
+        <form [formGroup]="updateFormGroup" class="m-t-14">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Fecha de Operación
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input formControlName="date" matInput [matDatepicker]="startDateDP" placeholder="Fecha de Admisión" />
+            <mat-datepicker-toggle matSuffix [for]="startDateDP"></mat-datepicker-toggle>
+            <mat-datepicker #startDateDP></mat-datepicker>
+          </mat-form-field>
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16 m-t-12">Código
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input formControlName="code" matInput required />
+            <mat-hint *ngIf="f['code'].touched && f['code'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['minlength'] ">
+                Debe tener mínimo 6 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['pattern']">
+                Solo acepta caracteres alfanúmericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16 m-t-12">Nombre
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input formControlName="name" matInput required />
+            <mat-hint *ngIf="f['name'].touched && f['name'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['minlength'] ">
+                Debe tener mínimo 4 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['pattern']">
+                Solo acepta caracteres alfabéticos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16 m-t-12"> Tipo de Microruta
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input formControlName="microRouteType" matInput required />
+            <mat-hint *ngIf="f['microRouteType'].touched && f['microRouteType'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['microRouteType'].errors && f['microRouteType'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['microRouteType'].errors && f['microRouteType'].errors['minlength'] ">
+                Debe tener mínimo 4 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['microRouteType'].errors && f['microRouteType'].errors['pattern']">
+                Solo acepta caracteres alfanúmericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16 m-t-12">Código Macroruta
+          </mat-label>
+          <app-modal-routes [idRoute]="'KISIS8E9'"></app-modal-routes>
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16 m-t-16">Estado
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100 hide-hint">
+            <mat-select placeholder="Estado" required [value]="statusMR">
+              <mat-option *ngFor="let item of status" [value]="item" selected>{{ item
+                }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <div class="text-right p-24 p-t-10 m-t-10">
+          <div class="row justify-content-end">
+            <button mat-flat-button color="primary" class="m-r-8">Guardar</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>

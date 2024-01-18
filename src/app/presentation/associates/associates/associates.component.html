@@ -1,0 +1,53 @@
+<mat-card class="course-app cardWithShadow">
+    <mat-card-content class="p-24">
+        <div class="row">
+            <div class="col-lg-4 ">
+                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                    <mat-label>Identificación</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" />
+                    <mat-icon matSuffix>
+                        <i-tabler name="id-badge" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 m-t-10">
+                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                    <mat-label>Código</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" />
+                    <mat-icon matSuffix>
+                        <i-tabler name="2fa" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 end m-t-10">
+                <button mat-fab extended color="primary" aria-label="Example icon button with a delete icon">
+                    <div class="d-flex align-items-center">
+                        <i-tabler class="icon-20 m-r-4" name="search"></i-tabler><span> Buscar</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div class="row">
+    <div class="col">
+        <mat-card class="cardWithShadow">
+            <mat-card-header>
+                <div class="col">
+                    <mat-card-title>Asociados</mat-card-title>
+                    <mat-card-subtitle class="mat-body-1">Asociados registrados en el sistema</mat-card-subtitle>
+                </div>
+                <div class="col justify-end">
+                    <button routerLink="/associates/register-associate" mat-mini-fab color="accent"
+                        aria-label="Example icon button with a delete icon">
+                        <i-tabler class="icon-20" name="user-plus"></i-tabler>
+                    </button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <app-table-users typeTable="associate" [data]="allAssociates" (editUser)="getId($event)" (seeUser)="getSeeId($event)"></app-table-users>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

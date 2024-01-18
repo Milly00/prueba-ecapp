@@ -1,0 +1,120 @@
+<div class="blank-layout-container justify-content-center">
+  <div class="position-relative row w-100 h-100">
+    <div class="col-lg-6 col-xl-7 bg-gredient p-0">
+      <div class="p-24 h-100">
+        <a  *ngIf="options.theme === 'light'">
+          <img src="./assets/images/logos/dark-logo.svg" class="align-middle m-2" alt="logo" />
+        </a>
+        <a  *ngIf="options.theme === 'dark'">
+          <img src="./assets/images/logos/light-logo.svg" class="align-middle m-2" alt="logo" />
+        </a>
+        <div class="align-items-center justify-content-center img-height d-none d-lg-flex">
+          <img src="/assets/images/backgrounds/login-bg.svg" alt="login" style="max-width: 500px" />
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-xl-5 p-0">
+      <div class="p-32 d-flex align-items-start align-items-lg-center justify-content-center h-100">
+        <div class="row justify-content-center w-100">
+          <div class="col-lg-9 max-width-form">
+            <h4 class="f-w-700 f-s-24 m-0">Verifica tu cuenta</h4>
+            <span class="f-s-14 d-block mat-body-1 m-t-8">Estas a un paso de ser parte de la familia ECApp</span>
+            <form class="m-t-30" [formGroup]="form" (ngSubmit)="submit()">
+              <div class="row max-h-72 ">
+                <div class="col-lg-6 col-xl-7">
+                  <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ciudad</mat-label>
+                  <mat-form-field appearance="outline" class="w-100" color="primary">
+                    <input matInput formControlName="city" />
+                    <mat-hint *ngIf="f['city'].touched && f['city'].invalid" class="m-b-16 error-msg">
+                      <div class="text-error" *ngIf="f['city'].errors && f['city'].errors['required']">
+                        Ciudad es Requerido.
+                      </div>
+                      <div class="text-error" *ngIf="f['city'].errors && f['city'].errors['minlength']">
+                        Ciudad debe tener 6 caracteres.
+                      </div>
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-xl-7">
+                  <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Número de Celular</mat-label>
+                  <mat-form-field appearance="outline" class="w-100" color="primary">
+                    <input matInput formControlName="phone" />
+                    <mat-hint *ngIf="f['phone'].touched && f['phone'].invalid" class="m-b-16 error-msg ">
+                      <div class="text-error" *ngIf="f['phone'].errors && f['phone'].errors['required']">
+                        Télefono es requerido.
+                      </div>
+                      <div class="text-error" *ngIf="f['phone'].errors && f['phone'].errors['minlength']">
+                        Télefono debe tener 6 caracteres.
+                      </div>
+                      <div class="text-error" *ngIf="f['phone'].errors && f['phone'].errors['pattern']">
+                        Teléfono solo recibe caracteres númericos.
+                      </div>
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- bussiness name -->
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Representante Legal</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput type="text" formControlName="legalRepresentative" />
+                <mat-hint *ngIf="f['legalRepresentative'].touched && f['legalRepresentative'].invalid"
+                  class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="
+                      f['legalRepresentative'].errors && f['legalRepresentative'].errors['required']
+                    ">
+                    Representante Legal es requerida.
+                  </div>
+                  <div class="text-error"
+                    *ngIf="f['legalRepresentative'].errors && f['legalRepresentative'].errors['minlength']">
+                    Representante Legal debe tener más de 5 caracteres.
+                  </div>
+                  <div class="text-error"
+                    *ngIf="f['legalRepresentative'].errors && f['legalRepresentative'].errors['pattern']">
+                    Representante Legal solo recibe letras.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+              <!--Username-->
+              <div class="row">
+                <div class="col-lg-6 col-xl-7">
+                  <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Usuario</mat-label>
+                  <mat-form-field appearance="outline" class="w-100" color="primary">
+                    <input matInput formControlName="user" />
+                    <mat-hint *ngIf="f['user'].touched && f['user'].invalid" class="m-b-16 error-msg">
+                      <div class="text-error" *ngIf="f['user'].errors && f['user'].errors['required']">
+                        Usuario es requerido.
+                      </div>
+                      <div class="text-error" *ngIf="f['user'].errors && f['user'].errors['minlength']">
+                        Usuario deberia tener 6 caracteres.
+                      </div>
+                      <div class="text-error" *ngIf="f['user'].errors && f['user'].errors['pattern']">
+                        Usuario solo recibe letras,dígitos y guiones bajos.
+                      </div>
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <!-- password -->
+                <div class="col-lg-6 col-xl-7">
+                  <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
+                  <mat-form-field appearance="outline" class="w-100" color="primary">
+                    <input matInput type="password" formControlName="password" />
+                    <mat-hint *ngIf="f['password'].touched && f['password'].invalid" class="m-b-16 error-msg">
+                      <div class="text-error" *ngIf="
+                    f['password'].errors && f['password'].errors['required']
+                  ">
+                        La Contraseña es requerida.
+                      </div>
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-flat-button color="primary" class="w-100" [disabled]="!form.valid">
+                Registrarse
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

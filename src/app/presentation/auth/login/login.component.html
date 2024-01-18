@@ -1,0 +1,124 @@
+<div class="blank-layout-container justify-content-center">
+  <div class="position-relative row w-100 h-100">
+    <div class="col-lg-7 col-xl-8 bg-gredient p-0">
+      <div class="p-24 h-100">
+        <a  *ngIf="options.theme === 'light'">
+          <img src="./assets/images/logos/dark-logo.svg" class="align-middle m-2" alt="logo" />
+        </a>
+        <a  *ngIf="options.theme === 'dark'">
+          <img src="./assets/images/logos/light-logo.svg" class="align-middle m-2" alt="logo" />
+        </a>
+
+        <div class="align-items-center justify-content-center img-height d-none d-lg-flex">
+          <img src="/assets/images/backgrounds/login-bg.svg" alt="login" style="max-width: 500px" />
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 col-xl-4 p-0">
+      <div class="p-32 d-flex align-items-start align-items-lg-center justify-content-center h-100">
+        <div class="row justify-content-center w-100">
+          <div class="col-lg-9 max-width-form">
+            <h4 class="f-w-700 f-s-24 m-0">Bienvenido a ECApp</h4>
+            <span class="f-s-14 d-block mat-body-1 m-t-8">Ingresa tus credenciales para acceder a tu cuenta.</span>
+            <form class="m-t-30" [formGroup]="form" (ngSubmit)="submit()">
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Código de Cuenta</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput type="text" autocomplete="false" formControlName="codeAccount" />
+                <mat-hint *ngIf="f['codeAccount'].touched && f['codeAccount'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f['codeAccount'].errors && f['codeAccount'].errors['required']">
+                    Código de Cuuenta es obligatorio.
+                  </div>
+                  <div class="text-error" *ngIf="f['codeAccount'].errors && f['codeAccount'].errors['minlength'] ">
+                    Código de Cuenta debe tener 12 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f['codeAccount'].errors && f['codeAccount'].errors['pattern']">
+                    Código de Cuenta solo recibe caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+              <!--Username-->
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Usuario</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput formControlName="user" />
+                <mat-hint *ngIf="f['user'].touched && f['user'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="f['user'].errors && f['user'].errors['required']">
+                    Usuario es requerido.
+                  </div>
+                  <div class="text-error" *ngIf="f['user'].errors && f['user'].errors['minlength']">
+                    Usuario debe tener mínimo 6 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="f['user'].errors && f['user'].errors['pattern']">
+                    Usuario solo recibe letras,dígitos y guiones bajos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+              <!-- password -->
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput type="password" formControlName="password" />
+                <mat-hint *ngIf="f['password'].touched && f['password'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="
+                        f['password'].errors && f['password'].errors['required']
+                      ">
+                    La Contraseña es requerida.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+              <div class="d-flex align-items-center m-b-12 ">
+                <mat-checkbox color="primary">Recordar este Dispositivo</mat-checkbox>
+                <a [routerLink]="['/auth/recovery-password']"
+                  class="text-primary f-w-600 text-decoration-none m-l-auto f-s-13">¿ Olvido su Contraseña ?</a>
+              </div>
+              <button mat-flat-button color="primary" class="w-100" [disabled]="!form.valid">
+                Iniciar Sesión
+              </button>
+              <!-- input -->
+            </form>
+            <span class="d-block f-w-500 d-block m-t-24">¿ Es Nuevo en ECApp?
+              <a [routerLink]="['/auth/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
+                Crear cuenta</a>
+            </span>
+          </div>
+          <div class="col-lg-9 max-width-form" *ngIf="false">
+            <h4 class="f-w-700 f-s-24 m-0">Bienvenido a ECApp</h4>
+            <span class="f-s-14 d-block mat-body-1 m-t-8">Ingresa tus credenciales para acceder a tu cuenta.</span>
+            <form class="m-t-30" [formGroup]="formResend" (ngSubmit)="submitResend()">
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Código Sui</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput type="text" autocomplete="false" formControlName="codeSui" />
+                <mat-hint *ngIf="fResend['codeSui'].touched && fResend['codeSui'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="fResend['codeSui'].errors && fResend['codeSui'].errors!['required']">
+                    Código Sui es obligatorio.
+                  </div>
+                  <div class="text-error" *ngIf="fResend['codeSui'].errors && fResend['codeSui'].errors!['minlength'] ">
+                    Código Sui debe tener 12 caracteres.
+                  </div>
+                  <div class="text-error" *ngIf="fResend['codeSui'].errors && fResend['codeSui'].errors!['pattern']">
+                    Código Sui solo recibe caracteres alfanúmericos.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+              <!-- email -->
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Correo Electrónico</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput type="email" formControlName="email" />
+                <mat-hint *ngIf="fResend['email'].touched && fResend['email'].invalid" class="m-b-16 error-msg">
+                  <div class="text-error" *ngIf="fResend['email'].errors && fResend['email'].errors!['required']">
+                    Correo Electrónico es requerido.
+                  </div>
+                  <div class="text-error" *ngIf="fResend['email'].errors && fResend['email'].errors!['pattern']">
+                    Ingrese un correo válido.
+                  </div>
+                </mat-hint>
+              </mat-form-field>
+              <button mat-flat-button color="primary" class="w-100" [disabled]="!formResend.valid">
+                Reenviar Código
+              </button>
+              <!-- input -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

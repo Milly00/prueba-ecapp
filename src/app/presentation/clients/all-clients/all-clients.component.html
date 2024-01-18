@@ -1,0 +1,79 @@
+<mat-card class="course-app cardWithShadow">
+    <mat-card-content class="p-24">
+        <mat-card-title class="m-b-4">Buscar por</mat-card-title>
+
+        <div class="row">
+            <div class="col-lg-3 m-b-16">
+                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                    <mat-label>Identificación</mat-label>
+                    <input matInput  />
+                    <mat-icon matSuffix>
+                        <i-tabler name="id-badge" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 m-b-16">
+                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput  />
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 m-b-16">
+                <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                    <mat-select placeholder="Estado" >
+                      <mat-option *ngFor="let item of typesClient" [value]="item" selected>{{ item.status
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-3">
+                <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                    <mat-select placeholder="Sector Industrial" >
+                      <mat-option *ngFor="let item of sectorIndustries" [value]="item" selected>{{ item.status
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-lg-3 m-b-16">
+                <app-modal-warehouses></app-modal-warehouses>
+            </div>
+            <div class="col-lg-3 m-b-16">
+                <app-modal-cities></app-modal-cities>
+            </div>
+            <div class="col-lg-3 end">
+                <button mat-fab extended color="primary" aria-label="Example icon button with a delete icon">
+                    <div class="d-flex align-items-center">
+                        <i-tabler class="icon-20 m-r-4" name="search"></i-tabler><span> Buscar</span>
+                    </div>
+                </button>
+                <button mat-fab extended color="warn" class="m-l-10">
+                    <div class="d-flex align-items-center">
+                        <mat-icon class="icon-20 m-r-4">search_off</mat-icon>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div class="row">
+    <div class="col">
+        <mat-card class="cardWithShadow">
+            <mat-card-header>
+                <div class="col">
+                    <mat-card-title>Clientes</mat-card-title>
+                    <mat-card-subtitle class="mat-body-1"> Clientes registrados en el sistema</mat-card-subtitle>
+                </div>
+                <div class="col justify-end">
+                    <button routerLink="/clients/register-client" mat-mini-fab color="accent"
+                        aria-label="Example icon button with a delete icon">
+                        <i-tabler class="icon-20" name="user-plus"></i-tabler>
+                    </button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <app-table-users (seeUser)="getUser($event)" typeTable="client" [displayedColumns]="displayedColumns" [data]="allClients"></app-table-users>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

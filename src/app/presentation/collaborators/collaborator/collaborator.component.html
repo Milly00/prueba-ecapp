@@ -1,0 +1,116 @@
+<app-breadcrumb [title]="'Juan Perez Lozano'" [subtitle]="'Información del Cliente'"></app-breadcrumb>
+
+<mat-card-content class="p-y-24">
+    <form action="" [formGroup]="firstFormGroup">
+        <div class="row">
+            <div class="col-sm-6">
+                <mat-card class="cardWithShadow">
+                    <mat-card-content class="p-y-24">
+
+                        <div class="text-center m-t-24">
+
+                            <img alt="" src="/assets/images/profile/user-1.jpg" class="rounded-circle" width="120" />
+                            <div class="m-t-24">
+                                <div class="file-input-box"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+                                    <input accept=".png .jpg" type="file" #fileInput />
+                                    <button mat-flat-button color="primary" class="m-r-8">
+                                        Subir
+                                    </button>
+                                </div>
+                            </div>
+                            <span class="f-s-14 m-t-24 d-block">Válido JPG o PNG. Tamaño máximo de 800K</span>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-sm-6">
+
+                <mat-card class="cardWithShadow">
+                    <mat-card-content class="p-y-24">
+                        <mat-card-title>Datos Básicos</mat-card-title>
+                        <mat-card-subtitle class="mat-body-1"></mat-card-subtitle>
+                        <div class="row m-t-24">
+                            <div class="col-lg-6">
+                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Nombre
+                                </mat-label>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input formControlName="name" matInput required />
+                                    <mat-hint *ngIf="f['name'].touched && f['name'].invalid" class="m-b-16 error-msg">
+                                        <div class="text-error"
+                                            *ngIf="f['name'].errors && f['name'].errors['minlength'] ">
+                                            Debe tener mínimo 4 caracteres.
+                                        </div>
+                                        <div class="text-error" *ngIf="f['name'].errors && f['name'].errors['pattern']">
+                                            Solo acepta letras.
+                                        </div>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Apellidos
+                                </mat-label>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input type="text" formControlName="surname" matInput required />
+                                    <mat-hint *ngIf="f['surname'].touched && f['surname'].invalid"
+                                        class="m-b-16 error-msg">
+                                        <div class="text-error"
+                                            *ngIf="f['surname'].errors && f['surname'].errors['minlength'] ">
+                                            Debe tener mínimo 4 caracteres.
+                                        </div>
+                                        <div class="text-error"
+                                            *ngIf="f['surname'].errors && f['surname'].errors['pattern']">
+                                            Solo acepta letras.
+                                        </div>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Contraseña
+                                </mat-label>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input formControlName="password" type="password" matInput required />
+                                    <mat-hint *ngIf="f['password'].touched && f['password'].invalid"
+                                        class="m-b-16 error-msg">
+
+                                        <div class="text-error"
+                                            *ngIf="f['password'].errors && f['password'].errors['minlength'] ">
+                                            Debe tener mínimo 4 caracteres.
+                                        </div>
+                                        <div class="text-error"
+                                            *ngIf="f['password'].errors && f['password'].errors['pattern']">
+                                            Solo acepta caracteres númericos.
+                                        </div>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-label for="phoneNumber" class="mat-subtitle-2 f-w-600 d-block m-b-16">Teléfono
+                                </mat-label>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input id="phoneNumber" formControlName="phoneNumber" matInput required />
+                                    <mat-hint *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid"
+                                        class="m-b-16 error-msg">
+
+                                        <div class="text-error"
+                                            *ngIf="f['phoneNumber'].errors && f['phoneNumber'].errors['minlength'] ">
+                                            Debe tener mínimo 4 caracteres.
+                                        </div>
+                                        <div class="text-error"
+                                            *ngIf="f['phoneNumber'].errors && f['phoneNumber'].errors['pattern']">
+                                            Solo acepta caracteres númericos.
+                                        </div>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <button mat-flat-button type="button" color="primary" class="m-r-8">
+                            Actualizar Información
+                          </button>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+        </div>
+    </form>
+</mat-card-content>

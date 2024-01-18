@@ -1,0 +1,34 @@
+@import url(./assets/scss/style.scss);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-mdc-checkbox label{
+    font-size: 14px;
+}
+
+.modal-associates {
+    z-index: 9999;
+    width: 100%;
+}
+
+.modal-vehicles {
+    width: 100%;
+}
+.modal-routes {
+    width: 100%;
+}
+.modal-cities {
+    width: 100%;
+}
+.modal-warehouses {
+    width: 100%;
+}
+.modal-delivery {
+    width: 100%;
+}
+.modal-client {
+    width: 100%;
+}
+.modal-material {
+    width: 100%;
+}

@@ -1,0 +1,510 @@
+
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+        <mat-card-title class="m-b-0">Registro Asociado</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+        <mat-stepper [linear]="stepperLinear" #stepper [orientation]="(stepperOrientation | async)!">
+            <mat-step>
+                <ng-template matStepLabel>Bodega</ng-template>
+                <div class="row m-b-16">
+                    <div class="col">
+                        <app-modal-warehouses (warehouse)="getWarehouse($event)"></app-modal-warehouses>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!emptyWarehouse">
+                    <div class="col-lg-4">
+                        <span> <strong> Nombre de la Bodega</strong></span>
+                        <p>{{warehouse.name}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <span> <strong> Tipo de Bodega</strong></span>
+                        <p>{{warehouse.warehouseType}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <span> <strong>Fecha de Operación de la Bodega</strong> </span>
+                        <p>{{warehouse.operationStartDate}}</p>
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step> <ng-template matStepLabel>Tipo de Usuario</ng-template>
+                <div class="row m-t-16 d-flex justify-content-center">
+                    <div class="col-lg-4" *ngIf="!isSearchAssociate">
+                        <mat-card class="cardWithShadow">
+                            <mat-card-content class="text-center p-24">
+                                <img alt="" src="assets/images/profile/user-1.jpg" class="rounded-circle border p-5"
+                                    width="100" />
+                                <h4 mat-card-title class="card-title m-t-16 m-b-0">
+                                    Cliente
+                                </h4>
+                                <span class="f-s-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem non
+                                    augue nulla lectus. </span>
+                                <div class="m-t-20">
+                                    <button *ngIf="!isAddClient && !isSearchClient" (click)="isSearchClient = true"
+                                        mat-flat-button class="m-r-8" color="primary">Buscar</button>
+                                    <button *ngIf="!isSearchClient && !isAddClient" (click)="isAddClient = true"
+                                        mat-flat-button color="accent">Agregar</button>
+                                </div>
+
+                            </mat-card-content>
+                            <mat-divider></mat-divider>
+
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-4" *ngIf="!isSearchClient && !isAddClient">
+                        <mat-card class="cardWithShadow">
+                            <mat-card-content class="text-center p-24">
+                                <img alt="" src="assets/images/profile/user-1.jpg" class="rounded-circle border p-5"
+                                    width="100" />
+                                <h4 mat-card-title class="card-title m-t-16 m-b-0">
+                                    Asociado
+                                </h4>
+                                <span class="f-s-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem non
+                                    augue nulla lectus. </span>
+                                <div class="m-t-20">
+                                    <button *ngIf="!isSearchAssociate" (click)="isSearchAssociate = true"
+                                        mat-flat-button class="m-r-8" color="primary">Buscar</button>
+
+                                </div>
+
+                            </mat-card-content>
+                            <mat-divider></mat-divider>
+
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-6" *ngIf="isSearchClient">
+                        <app-modal-clients (Client)="getClient($event)"></app-modal-clients>
+
+                        <div class="row m-t-16" *ngIf="client?.name !== undefined">
+                            <div class="col-lg-4">
+                                <span> <strong> Nombre</strong></span>
+                                <p>{{client?.name}}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <span> <strong> Identificación</strong></span>
+                                <p>{{client?.identityType}} - {{client?.identity}}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <span> <strong> Tipo de Cliente</strong></span>
+                                <p>{{client?.clientType}}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <span> <strong> Sector Industrial</strong></span>
+                                <p>{{client?.industrySector}}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <span> <strong> Dirección</strong></span>
+                                <p>{{client?.address}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" *ngIf="isSearchAssociate">
+                        <app-modal-associates (associate)="getAssociate($event)"></app-modal-associates>
+                        <div class="row m-t-16" *ngIf="associate?.name !== undefined">
+                            <div class="col-lg-4">
+                                <span> <strong> Nombre</strong></span>
+                                <p>{{associate?.name}}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <span> <strong> Identificación</strong></span>
+                                <p>{{associate?.identityType}} - {{associate?.identity}}</p>
+                            </div>
+
+                        </div>
+
+                        <app-modal-vehicles (vehicle)="getVehicle($event)"></app-modal-vehicles>
+
+                        <div class="row m-t-16" *ngIf="vehicle?.plate !== undefined">
+                            <div class="col-lg-4">
+                                <span> <strong> Placa</strong></span>
+                                <p>{{vehicle?.plate}}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <span> <strong> Tipo de Vehículo</strong></span>
+                                <p>{{vehicle?.vehicleType}} </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="isAddClient">
+                    <div class="col">
+                        <app-register-client></app-register-client>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <button mat-flat-button color="warn" matStepperPrevious>
+                        Atrás
+                    </button>
+                    <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Materiales</ng-template>
+
+                <div class="d-flex align-items-center justify-content-between m-b-16">
+                    <button (click)="isAddMaterial = true" mat-flat-button>
+                        <div class="d-flex align-items-center">
+                            <i-tabler class="icon-20 m-r-4" name="circle-plus"></i-tabler><span> Nuevo Material</span>
+                        </div>
+
+                    </button>
+                </div>
+                <mat-card class="cardWithShadow" *ngIf="isAddMaterial">
+                    <mat-card-content class="p-24">
+                        <form [formGroup]="materialFormGroup" class="row" action="">
+                            <div class="col-lg-4 m-b-16">
+                                <mat-label>Material</mat-label>
+                                <app-modal-materials (material)="getMaterial($event)"></app-modal-materials>
+                            </div>
+                            <div class="col-lg-4 m-b-16">
+                                <mat-label>Peso</mat-label>
+                                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                                    <input type="number" matInput formControlName="weight" />
+                                    <mat-hint *ngIf="f['weight'].touched && f['weight'].invalid"
+                                        class="m-b-16 error-msg">
+                                        <div class="text-error"
+                                            *ngIf="f['weight'].errors && f['weight'].errors['required']">
+                                            Este campo es obligatorio.
+                                        </div>
+                                        <div class="text-error"
+                                            *ngIf="f['weight'].errors && f['weight'].errors['pattern']">
+                                            Solo acepta caracteres alfanúmericos.
+                                        </div>
+
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-4 m-b-16">
+                                <mat-label>Peso por KG</mat-label>
+                                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                                    <input type="number" matInput formControlName="weightKG" />
+                                    <mat-hint *ngIf="f['weightKG'].touched && f['weightKG'].invalid"
+                                        class="m-b-16 error-msg">
+                                        <div class="text-error"
+                                            *ngIf="f['weightKG'].errors && f['weightKG'].errors['required']">
+                                            Este campo es obligatorio.
+                                        </div>
+                                        <div class="text-error"
+                                            *ngIf="f['weightKG'].errors && f['weightKG'].errors['pattern']">
+                                            Solo acepta caracteres alfanúmericos.
+                                        </div>
+
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-4 m-b-16">
+                                <mat-label>KG de Desecho</mat-label>
+                                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                                    <input type="number" formControlName="percent" matInput />
+                                    <mat-hint *ngIf="f['percent'].touched && f['percent'].invalid"
+                                        class="m-b-16 error-msg">
+                                        <div class="text-error"
+                                            *ngIf="f['percent'].errors && f['percent'].errors['required']">
+                                            Este campo es obligatorio.
+                                        </div>
+                                        <div class="text-error"
+                                            *ngIf="f['percent'].errors && f['percent'].errors['pattern']">
+                                            Solo acepta caracteres alfanúmericos.
+                                        </div>
+
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-4 m-b-16">
+                                <mat-label>Lugar de Recepción de Desecho </mat-label>
+                                <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                                    <mat-select placeholder="Lugar de Recepción de Desecho">
+                                        <mat-option *ngFor="let item of siteWaste" [value]="item" selected>{{ item
+                                            }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </form>
+                        <div class="d-flex align-items-center justify-content-between m-b-16">
+                            <button (click)="addMaterial()" type="button" color="accent" mat-flat-button>
+                                <div class="d-flex align-items-center">
+                                    <span> Agregar
+                                        Material</span>
+                                </div>
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <mat-card class="cardWithShadow">
+                            <mat-card-content class="p-24">
+                                <h3>Agregar Material(es)</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row m-b-10">
+                                            <h4 class="col m-0"> Total Materiales</h4>
+                                            <p class="text-end col m-0">{{totalMaterial}}</p>
+                                        </div>
+                                        <div class="row m-b-10">
+                                            <h4 class="col m-0"> Total KG</h4>
+                                            <p class="text-end col m-0">{{totalKG}}</p>
+                                        </div>
+                                        <div class="row m-b-10">
+                                            <h4 class="col m-0"> Total % de Desecho</h4>
+                                            <p class="text-end col m-0">{{totalPercent}}</p>
+                                        </div>
+                                        <div class="row m-b-10">
+                                            <h4 class="col m-0"> Total a Pagar</h4>
+                                            <p class="text-end col m-0">{{totalPayment}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-lg-8">
+                        <mat-card class="cardWithShadow" *ngIf="collectionMaterialsTable.length > 0">
+                            <mat-card-content class="p-24">
+                                <app-table-configurations (deleteElement)="deleteMaterial($event)" [displayedColumns2]="displayedColumnsMaterials"
+                                    [data]="collectionMaterialsTable"></app-table-configurations>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <button mat-flat-button color="warn" matStepperPrevious>
+                        Atrás
+                    </button>
+                    <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Información de Recuperación</ng-template>
+                <mat-card class="cardWithShadow">
+                    <mat-card-content class="p-24">
+                        <div class="row">
+                            <h4 class="col">Información de Recuperación</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 ">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput [matDatepicker]="startDateDP" placeholder="Inicio de Recolección" />
+                                    <mat-datepicker-toggle matSuffix [for]="startDateDP"></mat-datepicker-toggle>
+                                    <mat-datepicker #startDateDP></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-4">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput [matDatepicker]="endDateDP"
+                                        placeholder="Finalización de Recolección" />
+                                    <mat-datepicker-toggle matSuffix [for]="endDateDP"></mat-datepicker-toggle>
+                                    <mat-datepicker #endDateDP></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="cardWithShadow">
+                    <mat-card-content class="p-24">
+                        <div class="row">
+                            <h4 class="col">Seleccionar Ruta</h4>
+                        </div>
+                        <div class="row">
+
+
+                            <div class="col-lg-3 end ">
+                                <app-modal-microroutes [copyMicroRoutes]="collectionMicroRoutes" [showFilters]="true"
+                                    (collectionMicroroutes)="getMicroRoute($event)"></app-modal-microroutes>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="cardWithShadow" *ngIf="collectionMicroRoutes.length > 0">
+                    <mat-card-content class="p-24">
+
+                        <app-table-configurations (deleteElement)="deleteMicroRoute($event)"
+                            [displayedColumns2]="displayedColumnsMR"
+                            [data]="collectionMicroRoutes"></app-table-configurations>
+
+                    </mat-card-content>
+                </mat-card>
+                <div class="d-flex justify-content-between m-t-16">
+
+                    <button mat-flat-button color="warn" matStepperPrevious>Atrás</button>
+                    <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Evidencia</ng-template>
+                <mat-card class="cardWithShadow overflow-hidden">
+                    <mat-card-header class="course-header d-flex justify-content-between">
+                        <mat-card-title class="m-b-0 f-s-16">
+                            Foto
+                        </mat-card-title>
+                        <span class="d-flex align-items-center gap-4"><i-tabler name="clock"
+                                class="icon-16 d-flex"></i-tabler></span>
+                    </mat-card-header>
+                    <mat-card-content class="text-center p-y-24">
+                        <div class="file-input-box" role="button" aria-disabled="true" (keyup.enter)="fileInput.click()" (click)="fileInput.click()">
+                            <input accept=".png, .jpg" type="file" #fileInput (change)="onFileSelected($event)" />
+                            <div class="file-upload-content">
+                                <i-tabler class="icon-60 m-r-4" name="camera-plus"></i-tabler>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <div class="d-flex justify-content-between m-t-16">
+
+                    <button mat-flat-button color="warn" matStepperPrevious>Atrás</button>
+                    <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Detalle</ng-template>
+                <mat-card class="cardWithShadow">
+                    <mat-card-content class="p-24">
+                        <div class="row">
+                            <div class="col">
+
+                                <h2>Resumen</h2><mat-divider></mat-divider>
+                                <h4>Datos de la Bodega</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h5>Nombre</h5>
+                                <span>{{warehouse?.name}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Código</h5>
+                                <span>{{warehouse?.code}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Dirección</h5>
+                                <span>{{warehouse?.location?.address}}</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <h4>Datos del Cliente</h4>
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="row" *ngIf="isSearchClient">
+                            <div class="col-lg-3">
+                                <h5>Nombre</h5>
+                                <span>{{client?.name}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Identificación</h5>
+                                <span>{{client?.identityType}} {{client?.identity}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Tipo de Cliente</h5>
+                                <span>{{client?.clientType}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Sector Industrial</h5>
+                                <span>{{client?.industrySector}}</span>
+                            </div>
+                        </div>
+                       
+                        <div class="row" *ngIf="isSearchAssociate">
+                            <div class="col-lg-3">
+                                <h5>Nombre</h5>
+                                <span>{{associate?.name}} {{associate?.surnames}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Identificación</h5>
+                                <span>{{associate?.identityType}} {{associate?.identity}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <h5>Información Bancaria</h5>
+                                <span>{{associate?.detail?.bankInformation}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h4>Materiales</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-card class="cardWithShadow">
+                                    <mat-card-content class="p-24">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+
+                                            </div>
+                                            <div class="col">
+                                                <div class="row m-b-10">
+                                                    <h4 class="col m-0"> Total Materiales</h4>
+                                                    <p class="text-end col m-0">{{totalMaterial}}</p>
+                                                </div>
+                                                <div class="row m-b-10">
+                                                    <h4 class="col m-0"> Total KG</h4>
+                                                    <p class="text-end col m-0">{{totalKG}}</p>
+                                                </div>
+                                                <div class="row m-b-10">
+                                                    <h4 class="col m-0"> Total % de Desecho</h4>
+                                                    <p class="text-end col m-0">{{totalPercent}}</p>
+                                                </div>
+                                                <div class="row m-b-10">
+                                                    <h4 class="col m-0"> Total a Pagar</h4>
+                                                    <p class="text-end col m-0">{{totalPayment}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <mat-divider></mat-divider>
+        
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="row">
+                            <div class="col">
+                            <mat-accordion class="example-headers-align" multi>
+                                <mat-expansion-panel>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      Materiales
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                      Materiales agregados
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                              
+                                  <app-table-configurations [displayedColumns2]="displayedColumnsMaterialsDetail"
+                                    [data]="collectionMaterialsTable"></app-table-configurations>
+                              
+                                </mat-expansion-panel>                             
+                              </mat-accordion>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <div class="d-flex justify-content-between m-t-16">
+
+                    <button mat-flat-button color="warn" matStepperPrevious>Atrás</button>
+                    <button mat-flat-button color="primary" (click)="stepper.reset()">Enviar</button>
+                </div>
+            </mat-step>
+        </mat-stepper>
+    </mat-card-content>
+</mat-card>

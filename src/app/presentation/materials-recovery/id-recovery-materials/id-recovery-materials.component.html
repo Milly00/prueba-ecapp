@@ -1,0 +1,157 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-0">
+      <mat-tab-group mat-stretch-tabs="false" animationDuration="0ms">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="d-flex align-items-center">
+              <mat-icon>
+                <i-tabler name="info-circle" class="icon-20 m-r-8"></i-tabler>
+              </mat-icon>
+            </div>
+            Datos Básicos
+          </ng-template>
+          <mat-card-content class="p-y-24 b-t-1">
+            <div class="row">
+                <div class="col">
+
+                    <h2>Resumen</h2><mat-divider></mat-divider>
+                    <h4>Datos de la Bodega</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <h5>Nombre</h5>
+                    <span></span>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Código</h5>
+                    <span></span>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Dirección</h5>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <h4>Datos del Cliente</h4>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row" *ngIf="isSearchClient">
+                <div class="col-lg-3">
+                    <h5>Nombre</h5>
+                    <span></span>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Identificación</h5>
+                    <span></span>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Tipo de Cliente</h5>
+                    <span></span>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Sector Industrial</h5>
+                    <span></span>
+                </div>
+            </div>
+           
+            <div class="row" *ngIf="!isSearchClient">
+                <div class="col-lg-3">
+                    <h5>Nombre</h5>
+                    <span></span>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Identificación</h5>
+                    <span></span>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Información Bancaria</h5>
+                    <span></span>
+                </div>
+            </div>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="d-flex align-items-center">
+              <mat-icon>
+                <i-tabler name="checkup-list" class="icon-20 m-r-8"></i-tabler>
+              </mat-icon>
+            </div>
+            Materiales Agregados
+          </ng-template>
+          <mat-card-content class="p-y-24 b-t-1">
+            <div class="row">
+                <div class="col">
+                    <mat-card class="cardWithShadow">
+                        <mat-card-content class="p-24">
+                            <div class="row">
+                                <div class="col-lg-4">
+
+                                </div>
+                                <div class="col">
+                                    <div class="row m-b-10">
+                                        <h4 class="col m-0"> Total Materiales</h4>
+                                        <p class="text-end col m-0"></p>
+                                    </div>
+                                    <div class="row m-b-10">
+                                        <h4 class="col m-0"> Total KG</h4>
+                                        <p class="text-end col m-0"></p>
+                                    </div>
+                                    <div class="row m-b-10">
+                                        <h4 class="col m-0"> Total % de Desecho</h4>
+                                        <p class="text-end col m-0"></p>
+                                    </div>
+                                    <div class="row m-b-10">
+                                        <h4 class="col m-0"> Total a Pagar</h4>
+                                        <p class="text-end col m-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-divider></mat-divider>
+
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row">
+                <div class="col">
+                    <app-table-configurations [displayedColumns2]="displayedColumnsMaterialsDetail"
+                    ></app-table-configurations>
+                
+                </div>
+            </div>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="d-flex align-items-center">
+              <mat-icon>
+                <i-tabler name="route-square" class="icon-20 m-r-8"></i-tabler>
+              </mat-icon>
+            </div>
+           Rutas
+          </ng-template>
+          <mat-card-content class="p-y-24 b-t-1">
+            <div class="row">
+              <div class="col">
+                <app-table-configurations 
+                            [displayedColumns2]="displayedColumnsMR"
+                            ></app-table-configurations>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-tab>
+  
+      </mat-tab-group>
+      <div class="text-right p-24 p-t-0">
+        <!--
+        <button mat-flat-button color="primary" class="m-r-8">Guardar</button>-->
+      </div>
+    </mat-card-content>
+  </mat-card>

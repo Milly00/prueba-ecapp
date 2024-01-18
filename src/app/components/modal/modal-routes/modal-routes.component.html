@@ -1,0 +1,72 @@
+<!--
+<button *ngIf="opened === false" class="primary" (click)="openModal()">
+    Abrir Modal
+</button>-->
+<mat-form-field appearance="outline" class="w-100 hide-hint primary" (click)="openModal()">
+    <mat-label>Rutas</mat-label>
+    <input readonly="true" matInput [value]="valueRoute" />
+    <mat-icon matSuffix>
+        <i-tabler name="route" class="icon-20"></i-tabler>
+    </mat-icon>
+</mat-form-field>
+<div *ngIf="opened === true" class="modal-routes" >
+    <div class="modal-routes-content">
+        <div class="row p-20">
+            <div class="col">
+                <h3 class="modal-routes-content__title-modal">Rutas</h3>
+            </div>
+            <div class="col end modal-routes-content__icon">
+                <i-tabler (click)="openModal()" name="x" class="icon-24"></i-tabler>
+            </div>
+        </div>
+        <div class="row p-16">
+            <div class="col">
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="Buscar Rutas" [formControl]="searchTerm" />
+                    <mat-icon matSuffix>
+                        <i-tabler name="search" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row  modal-routes-content__card-routes">
+            <div class="col">
+                <ng-scrollbar class="position-relative" style="height:calc(100vh - 200px)">
+                    <div scrollViewport class="row  modal-routes-content__card-routes__body"
+                        *ngFor="let route of filterRoutes">
+                        <mat-card class="cardWithShadow">
+                            <mat-card-content>
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img [src]="route.imageRoute" alt="users" width="48" class="rounded" />
+                                        <div class="m-l-16">
+                                            <h6 class="f-s-14 mat-subtitle-1 f-w-600">
+                                                {{ route.name }} - {{route.numMacro}}
+                                            </h6>
+                                            <div class="row m-l-6">
+                                                    <span class="d-flex align-items-center mat-body-1 f-s-12">
+                                                        <i-tabler
+                                                            name="2fa" class="icon-14 m-r-4"></i-tabler>
+                                                        {{ route.areaId }}
+                                                    </span>
+                                                    <span class=" d-flex align-items-center mat-body-1 f-s-12 m-l-16">
+                                                        <i-tabler
+                                                            name="calendar-due" class="icon-14 m-r-4"></i-tabler>
+                                                        {{ route.operationStartDate }}
+                                                    </span>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button style="background-color: white; box-shadow: none; color: black;" (click)="sendRoute(route)" mat-mini-fab class="m-l-auto">
+                                        <i-tabler color="primary" name="circle-plus" class="icon-18"></i-tabler>
+                                    </button>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>

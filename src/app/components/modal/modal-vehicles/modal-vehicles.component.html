@@ -1,0 +1,73 @@
+<!--
+<button *ngIf="opened === false" class="primary" (click)="openModal()">
+    Abrir Modal
+</button>-->
+<mat-form-field appearance="outline" class="w-100 hide-hint primary" (click)="openModal()">
+    <mat-label>Vehículos</mat-label>
+    <input readonly="true" matInput [value]="valueVehicle" />
+    <mat-icon matSuffix>
+        <i-tabler name="truck-delivery" class="icon-20"></i-tabler>
+    </mat-icon>
+</mat-form-field>
+<div  *ngIf="opened === true" class="modal-vehicles" >
+    <div class="modal-vehicles-content">
+        <div class="row p-20">
+            <div class="col">
+                <h3 class="modal-vehicles-content__title-modal">Vehículos</h3>
+            </div>
+            <div class="col end modal-vehicles-content__icon">
+                <i-tabler (click)="openModal()" name="x" class="icon-24"></i-tabler>
+            </div>
+        </div>
+        <div class="row p-16">
+            <div class="col">
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="Buscar Vehículos" [formControl]="searchTerm" />
+                    <mat-icon matSuffix>
+                        <i-tabler name="search" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row  modal-vehicles-content__card-vehicles">
+            <div class="col">
+                <ng-scrollbar class="position-relative" style="height:calc(100vh - 200px)">
+                    <div scrollViewport class="row  modal-vehicles-content__card-vehicles__body"
+                        *ngFor="let vehicle of filterVehicles">
+                        <mat-card class="cardWithShadow">
+                            <mat-card-content>
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img [src]="vehicle.imagePath" alt="users" width="48" class="rounded" />
+                                        <div class="m-l-16">
+                                            <h6 class="f-s-14 mat-subtitle-1 f-w-600">
+                                                {{ vehicle.code }}
+                                            </h6>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <span class="d-flex align-items-center mat-body-1 f-s-12">
+                                                        <i-tabler name="truck" class="icon-14 m-r-4"></i-tabler>
+                                                        {{ vehicle.vehicleType }}
+                                                    </span>
+                                                </div>
+                                                <div class="col">
+                                                    <span class="d-flex align-items-center mat-body-1 f-s-12">
+                                                        <i-tabler name="2fa" class="icon-14 m-r-4"></i-tabler>
+                                                        {{ vehicle.plate }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button color="basic" (click)="sendVehicle(vehicle)" mat-mini-fab class="m-l-auto">
+                                        <i-tabler color="primary" name="circle-plus" class="icon-18"></i-tabler>
+                                    </button>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>

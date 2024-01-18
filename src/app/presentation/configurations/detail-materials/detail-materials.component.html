@@ -1,0 +1,185 @@
+<div class="bg-light rounded p-24 m-t-14">
+  <div class="m-l-10 w-100 row">
+    <div class="col-lg-1">
+      <img [src]="material.img" alt="users" width="80" class="rounded" />
+    </div>
+    <div class="col">
+      <div class="d-flex align-items-center w-100">
+        <h2 class="m-0 f-w-600 mat-subtitle-1 f-s-16">
+          {{ material.name }}
+        </h2>
+        <span class="m-l-auto">
+          <span class="d-flex m-r-0">
+            <span class="bg-accent rounded-pill p-x-8 f-w-600 text-white f-s-12 p-y-4">
+              {{ material.purchasePrice | currency : "COP" }}</span>
+          </span>
+        </span>
+      </div>
+      <div class="d-flex w-100">
+        <div class="col m-l-0 p-l-0">
+          <h5 class="m-0 f-w-600 mat-subtitle-1 f-s-16">
+            Código: {{ material.code }}
+          </h5>
+          <span class="mat-body-1">
+            {{ material.description | slice : 0 : 24 }}..
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row rounded p-24 m-t-14">
+  <mat-card [ngClass]="{ 'm-r-10': sidePanelOpened }" class="cardWithShadow col">
+      <div>
+        <mat-toolbar class="bg-white b-b-1 d-flex p-10">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <span class="d-flex  f-s-14">  Bodegas con {{ material.name }}</span>
+            <button [matTooltip]="textTooltip" (click)="close()" class="d-flex " mat-icon-button>
+              <i-tabler *ngIf="sidePanelOpened === false" name="eye" class="icon-20"></i-tabler>
+              <i-tabler *ngIf="sidePanelOpened === true" name="eye-closed" class="icon-20"></i-tabler>
+            </button>
+          </div>
+        </mat-toolbar>
+        <mat-card-content class="p-24">
+          <div class="row">
+            <div class="col-lg-3 m-b-16">
+              <app-modal-warehouses></app-modal-warehouses>
+            </div>
+            <div class="col-lg-3 ">
+              <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                <mat-select placeholder="Estado" [(ngModel)]="statusMaterial">
+                  <mat-option *ngFor="let item of status" [value]="item" selected>{{ item | nameColumnTable
+                    }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 m-b-16">
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-label>Código</mat-label>
+                <input [(ngModel)]="codeMaterial" matInput />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 m-b-16">
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-label>Nombre</mat-label>
+                <input [(ngModel)]="nameMaterial" matInput />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 m-b-16">
+              <mat-form-field appearance="outline" class="w-100 hide-hint">
+                <mat-label>Grupo</mat-label>
+                <input [(ngModel)]="groupMaterial" matInput />
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4 end">
+              <button mat-fab extended color="primary" aria-label="Example icon button with a delete icon">
+                <div class="d-flex align-items-center">
+                  <i-tabler class="icon-20 m-r-4" name="search"></i-tabler>
+                </div>
+              </button>
+              <button mat-fab extended color="warn" class="m-l-10">
+                <div class="d-flex align-items-center">
+                  <mat-icon class="icon-20 m-r-4">search_off</mat-icon>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div class="row m-t-24">
+            <ng-scrollbar [track]="'all'" style="height: calc(100vh - 300px); width: 100%;">
+              <div scrollViewport class="row w-100 " *ngFor="let warehouse of allMaterialWarehouse">
+                <mat-card class="cardWithShadow w-100 m-b-10 m-l-10">
+                  <mat-card-content>
+                    <div class="d-flex align-items-center">
+                      <div class="d-flex align-items-center">
+                        <img [src]="warehouse.imageWarehouse" alt="users" width="48" class="rounded" />
+                        <div class="m-l-16">
+                          <h6 class="f-s-14 mat-subtitle-1 f-w-600">
+                            {{ warehouse.name }} - {{ warehouse.code }}
+                          </h6>
+                          <div class="row m-l-6">
+                            <span class="mat-body-1 f-s-12">
+                              <i-tabler name="route" class="icon-14 m-r-4"></i-tabler>
+                              {{ warehouse.warehouseType }}
+                            </span>
+                            <span class="mat-body-1 f-s-12 m-l-16">
+                              <i-tabler name="calendar-due" class="icon-14 m-r-4"></i-tabler>
+                              {{ warehouse.operationStartDate }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <button (click)="openDEditMaterialWarehouse()" color="basic" mat-mini-fab
+                        class="m-l-auto">
+                        <i-tabler color="primary" name="edit" class="icon-18"></i-tabler>
+                      </button>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </ng-scrollbar>
+          </div>
+        </mat-card-content>
+      </div>
+   
+  </mat-card>
+
+  <mat-card *ngIf="sidePanelOpened" class="col-lg-4 cardWithShadow">
+    <mat-toolbar class="bg-white b-b-1">
+      <mat-toolbar-row>
+        <span>Tus Bodegas</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card-content>
+      <div *ngIf="sidePanelOpened">
+        <div class="row p-16">
+          <div class="col">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="Buscar Bodegas" [formControl]="searchTerm" />
+              <mat-icon matSuffix>
+                <i-tabler name="search" class="icon-20"></i-tabler>
+              </mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row modal-warehouses-content__card-warehouses">
+          <div class="col">
+            <ng-scrollbar class="position-relative" style="height: calc(100vh - 200px)">
+              <div scrollViewport class="row modal-warehouses-content__card-warehouses__body"
+                *ngFor="let warehouse of filterWarehouses">
+                <mat-card class="cardWithShadow">
+                  <mat-card-content>
+                    <div class="d-flex align-items-center">
+                      <div class="d-flex align-items-center">
+                        <img [src]="warehouse.imageWarehouse" alt="users" width="48" class="rounded" />
+                        <div class="m-l-16">
+                          <h6 class="f-s-14 mat-subtitle-1 f-w-600">
+                            {{ warehouse.name }} - {{ warehouse.code }}
+                          </h6>
+                          <div class="row m-l-6">
+                            <span class="mat-body-1 f-s-12">
+                              <i-tabler name="route" class="icon-14 m-r-4"></i-tabler>
+                              {{ warehouse.warehouseType }}
+                            </span>
+                            <span class="mat-body-1 f-s-12 m-l-16">
+                              <i-tabler name="calendar-due" class="icon-14 m-r-4"></i-tabler>
+                              {{ warehouse.operationStartDate }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <button (click)="openDialog(warehouse)" color="basic" mat-mini-fab class="m-l-auto">
+                        <i-tabler color="primary" name="circle-plus" class="icon-18"></i-tabler>
+                      </button>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </ng-scrollbar>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

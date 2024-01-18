@@ -1,0 +1,135 @@
+<h2 class="f-w-500 m-b-24 text-center" mat-dialog-title>
+  <strong>Configurar Material</strong>
+</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="w-100 row m-auto justify-content-center relative z-10" style="overflow-x: hidden"
+    aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <form #f="ngForm">
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input [(ngModel)]="data.name" autocomplete="off" type="text" matInput required placeholder="Nombre" name="name"
+              #name="ngModel" id="name" [pattern]="expressionsR.text" minlength="4" />
+            <mat-hint *ngIf="f.controls['name']?.invalid && f.controls['name']?.touched" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="
+                  f.controls['name'].errors &&
+                  f.controls['name'].errors['required']
+                ">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="
+                  f.controls['name'].errors &&
+                  f.controls['name'].errors['minlength']
+                ">
+                Debe tener mínimo 4 caracteres.
+              </div>
+              <div class="text-error" *ngIf="
+                  f.controls['name'].errors &&
+                  f.controls['name'].errors['pattern']
+                ">
+                Solo acepta caracteres alfabéticos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input [(ngModel)]="data.purchasePrice" type="number" matInput required placeholder="Precio"
+              name="purchasePrice" #purchasePrice="ngModel" [pattern]="expressionsR.number" minlength="1" />
+            <mat-hint *ngIf="
+                f.controls['purchasePrice']?.touched &&
+                f.controls['purchasePrice']?.invalid
+              " class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="
+                  f.controls['purchasePrice'].errors &&
+                  f.controls['purchasePrice'].errors['required']
+                ">
+                Este campo es obligatorio.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input [(ngModel)]="data.code" type="text" matInput required placeholder="Código" name="code"
+              #code="ngModel" [pattern]="expressionsR.text" minlength="6" />
+            <mat-hint *ngIf="f.controls['code']?.touched && f.controls['code']?.invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="
+                  f.controls['code'].errors &&
+                  f.controls['code'].errors['required']
+                ">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="
+                  f.controls['code'].errors &&
+                  f.controls['code'].errors['minlength']
+                ">
+                Debe tener mínimo 6 caracteres.
+              </div>
+              <div class="text-error" *ngIf="
+                  f.controls['code'].errors &&
+                  f.controls['code'].errors['pattern']
+                ">
+                Solo acepta caracteres alfanúmericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100 hide-hint">
+            <mat-select placeholder="Estado" name="state" #state="ngModel" [(ngModel)]="data.status" required>
+              <mat-option *ngFor="let item of status" [value]="item" selected>{{
+                item
+                }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <textarea name="description" #descriptio="ngModel" [(ngModel)]="data.description" matInput
+              [pattern]="expressionsR.text" minlength="4"></textarea>
+            <mat-hint *ngIf="
+                f.controls['description']?.touched &&
+                f.controls['description']?.invalid
+              " class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="
+                  f.controls['description'].errors &&
+                  f.controls['description'].errors['required']
+                ">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="
+                  f.controls['description'].errors &&
+                  f.controls['description'].errors['minlength']
+                ">
+                Debe tener mínimo 4 caracteres.
+              </div>
+              <div class="text-error" *ngIf="
+                  f.controls['description'].errors &&
+                  f.controls['description'].errors['pattern']
+                ">
+                Solo acepta caracteres alfanúmericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6" mat-dialog-actions>
+      <button [mat-dialog-close]="data" color="primary" mat-raised-button type="button"
+        class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto">
+        Aceptar
+      </button>
+      <button (click)="onNoClick()" color="warn" mat-stroked-button type="button"
+        class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>

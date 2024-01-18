@@ -1,0 +1,66 @@
+<!--
+<button *ngIf="opened === false" class="primary" (click)="openModal()">
+    Abrir Modal
+</button>-->
+<mat-form-field style="width: 100%;" appearance="outline" class="w-100 hide-hint primary" (click)="openModal()">
+    <mat-label>Ciudades</mat-label>
+    <input readonly="true" matInput [value]="valueCity" />
+    <mat-icon matSuffix>
+        <i-tabler name="map-pin-search" class="icon-20"></i-tabler>
+    </mat-icon>
+</mat-form-field>
+<div [ngClass]="{'isActiveModal': opened}" *ngIf="opened === true" class="modal-cities" >
+    <div class="modal-cities-content">
+        <div class="row p-20">
+            <div class="col">
+                <h3 class="modal-cities-content__title-modal">Ciudades</h3>
+            </div>
+            <div class="col end modal-cities-content__icon">
+                <i-tabler (click)="openModal()" name="x" class="icon-24"></i-tabler>
+            </div>
+        </div>
+        <div class="row p-16">
+            <div class="col">
+                <mat-form-field appearance="outline" class="w-100 ">
+                    <input matInput placeholder="Buscar Ciudades" [formControl]="searchTerm" />
+                    <mat-icon matSuffix>
+                        <i-tabler name="search" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row  modal-cities-content__card-cities">
+            <div class="col">
+                <ng-scrollbar class="position-relative" style="height:calc(100vh - 200px)">
+                    <div scrollViewport class="row  modal-cities-content__card-cities__body"
+                        *ngFor="let city of cities">
+                        <mat-card class="cardWithShadow">
+                            <mat-card-content>
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <span
+                                            class="text-primary bg-light-primary rounded icon-40 d-flex align-items-center justify-content-center">
+                                            <i-tabler name="map-pin" class="icon-18 d-flex"></i-tabler>
+                                        </span>
+                                        <div class="m-l-16">
+                                            <h6 class="f-s-14 mat-subtitle-1 f-w-600">
+                                                {{ city.ciudad }}
+                                            </h6>
+                                            <span class="mat-body-1 f-s-12">
+                                                {{ city.departamento }}
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <button color="basic" (click)="sendCities(city)" mat-mini-fab class="m-l-auto">
+                                        <i-tabler color="primary" name="circle-plus" class="icon-18"></i-tabler>
+                                    </button>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>

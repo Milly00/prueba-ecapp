@@ -1,0 +1,164 @@
+<mat-card class="course-app cardWithShadow">
+  <mat-card-content class="p-24">
+    <mat-card-title class="m-b-4">Buscar por</mat-card-title>
+    <div class="row">
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+          <mat-select placeholder="Estado" [(ngModel)]="statusMaterial">
+            <mat-option *ngFor="let item of status" [value]="item" selected>{{ item | nameColumnTable
+              }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 m-b-16">
+        <mat-form-field appearance="outline" class="w-100 hide-hint">
+          <mat-label>Código</mat-label>
+          <input [(ngModel)]="codeMaterial" matInput />
+
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 m-b-16">
+        <mat-form-field appearance="outline" class="w-100 hide-hint">
+          <mat-label>Nombre</mat-label>
+          <input [(ngModel)]="nameMaterial" matInput />
+
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 m-b-16">
+        <mat-form-field appearance="outline" class="w-100 hide-hint">
+          <mat-label>Grupo</mat-label>
+          <input [(ngModel)]="groupMaterial" matInput />
+
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 end">
+        <button mat-fab extended color="primary" aria-label="Example icon button with a delete icon">
+          <div class="d-flex align-items-center">
+
+            <i-tabler class="icon-20 m-r-4" name="search"></i-tabler><span> Buscar</span>
+          </div>
+        </button>
+        <button mat-fab extended color="warn" class="m-l-10">
+          <div class="d-flex align-items-center">
+            <mat-icon class="icon-20 m-r-4">search_off</mat-icon>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="row">
+  <mat-card [ngClass]="{ 'm-r-10': sidePanelOpened }" class="cardWithShadow col">
+    <div class="">
+      <div>
+        <mat-toolbar class="bg-white b-b-1">
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <span>Tus Materiales</span>
+            <button [matTooltip]="textTooltip" (click)="close()" class="d-flex" mat-icon-button>
+              <i-tabler  *ngIf="sidePanelOpened === false" name="eye" class="icon-20"></i-tabler>
+              <i-tabler *ngIf="sidePanelOpened === true" name="eye-closed" class="icon-20"></i-tabler>
+            </button>
+          </div>
+        </mat-toolbar>
+        <mat-card-content class="p-24">
+          <ng-scrollbar [track]="'all'" style="height: calc(100vh - 300px)">
+            <div class="">
+              <div *ngFor="let material of accountMaterials; let i = index">
+                <div class="mail-list p-y-20 p-x-16 p-l-10 cursor-pointer bg-light-primary">
+                  <div class="d-flex align-items-start w-100">
+                    <div class="m-l-10 w-100">
+                      <div class="d-flex">
+                        <div class="col-2 col-4">
+                          <img [src]="material.img" alt="users" width="60" class="rounded" />
+                        </div>
+                        <div class="col">
+                          <div class="d-flex align-items-center w-100">
+
+                            <h5 class="m-0 f-w-600 mat-subtitle-1 f-s-16">
+                              {{ material.code }} - {{ material.name }}
+                            </h5>
+                            <span class="m-l-auto">
+                              <i-tabler (click)="openDialog(material, true)" name="edit"
+                                class="icon-18 m-r-10"></i-tabler>
+                              <i-tabler routerLink="/configurations/materials/detail" name="eye-search"
+                                class="icon-18"></i-tabler>
+                            </span>
+                          </div>
+                          <br />
+                          <div class="d-flex w-100">
+                            <div class="col m-l-0 p-l-0">
+                              <span class="mat-body-1">
+                                {{ material.description | slice : 0 : 24 }}..
+                              </span>
+                            </div>
+                            <div class="col-2 justify-content-end d-flex p-r-0">
+                              <span class="d-flex m-r-0">
+                                <span class="bg-warning rounded-pill p-x-8 f-w-600 text-white f-s-12 p-y-4">
+                                  {{ material.purchasePrice }}</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+              </div>
+            </div>
+          </ng-scrollbar>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card *ngIf="sidePanelOpened" class="col-lg-4 cardWithShadow">
+    <mat-toolbar class="bg-white b-b-1">
+      <mat-toolbar-row>
+        <span>Materiales</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card-content>
+      <div *ngIf="sidePanelOpened">
+        <ng-scrollbar style="height: calc(100vh - 300px)">
+          <div class="todo-item p-y-12 p-x-8 b-b-1">
+            <div *ngFor="let material of copyAllMaterials; let i = index">
+              <div class="mail-list p-y-20 p-x-16 p-l-10 cursor-pointer">
+                <div class="d-flex align-items-start w-100">
+                  <img [src]="material.img" alt="users" width="48" class="rounded" />
+
+                  <div class="m-l-10 w-100">
+                    <div>
+                      <div class="d-flex align-items-center w-100">
+                        <h5 class="m-0 f-w-600 mat-subtitle-1 f-s-16">
+                          {{ material.name }}
+                        </h5>
+                      </div>
+                      <span class="mat-body-1">
+                        {{ material.description | slice : 0 : 24 }}..
+                      </span>
+                      <!-- icons -->
+                      <div class="d-flex justify-content-center m-t-8">
+                        <!-- star icon -->
+                        <span class="f-s-12 text-nowrap col p-l-0">{{
+                          material.code
+                          }}</span>
+                        <span class="f-s-12 text-nowrap col">{{ material.purchasePrice | currency : "COP" }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <button color="basic" mat-mini-fab class="m-l-auto" (click)="openDialog(material, false)">
+                    <i-tabler color="primary" name="circle-plus" class="icon-18"></i-tabler>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-scrollbar>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

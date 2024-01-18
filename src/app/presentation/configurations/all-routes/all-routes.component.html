@@ -1,0 +1,53 @@
+<mat-card class="course-app cardWithShadow">
+    <mat-card-content class="p-24">
+        <mat-card-title class="m-b-4">Buscar por</mat-card-title>
+        <div class="row">
+            <div class="col-lg-4 m-b-16">
+                <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                    <mat-select placeholder="Estado" [(ngModel)]="statusDelivery">
+                        <mat-option *ngFor="let item of status" [value]="item" selected>{{ item | nameColumnTable
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 m-b-16">
+                <app-modal-delivery-areas></app-modal-delivery-areas>
+            </div>
+            <div class="col-lg-3 end">
+                <button mat-fab extended color="primary" aria-label="Example icon button with a delete icon">
+                    <div class="d-flex align-items-center">
+                        <i-tabler class="icon-20 m-r-4" name="search"></i-tabler><span> Buscar</span>
+                    </div>
+                </button>
+                <button mat-fab extended color="warn" class="m-l-10">
+                    <div class="d-flex align-items-center">
+                        <mat-icon class="icon-20 m-r-4">search_off</mat-icon>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+    </mat-card-content>
+</mat-card>
+<div class="row">
+    <div class="col">
+        <mat-card class="cardWithShadow">
+            <mat-card-header>
+                <div class="col">
+                    <mat-card-title>Rutas</mat-card-title>
+                    <mat-card-subtitle class="mat-body-1"></mat-card-subtitle>
+                </div>
+                <div class="col justify-end">
+                    <button (click)="callDialog()" mat-mini-fab color="accent"
+                        aria-label="Example icon button with a delete icon">
+                        <i-tabler class="icon-20" name="circle-plus"></i-tabler>
+                    </button>
+                </div>
+            </mat-card-header>
+            <app-table-configurations [displayedColumns2]="displayedColumns" [data]="data"
+                (editConfiguration)="getId($event)"></app-table-configurations>
+            <mat-card-content>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

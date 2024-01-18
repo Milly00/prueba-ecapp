@@ -1,0 +1,113 @@
+<!--
+<button *ngIf="opened === false" class="primary" (click)="openModal()">
+    Abrir Modal
+</button>-->
+<mat-form-field appearance="outline" class="w-100 hide-hint primary" (click)="openModal()">
+    <mat-label>Micro-Rutas</mat-label>
+    <input readonly="true" matInput [value]="valueMicroroute" />
+    <mat-icon matSuffix>
+        <i-tabler name="map-pins" class="icon-20"></i-tabler>
+    </mat-icon>
+</mat-form-field>
+<div *ngIf="opened === true" class="modal-routes">
+    <div class="modal-routes-content">
+        <div class="row p-20">
+            <div class="col">
+                <h3 class="modal-routes-content__title-modal">Micro-Rutas</h3>
+            </div>
+            <div class="col end modal-routes-content__icon">
+                <i-tabler (click)="openModal()" name="x" class="icon-24"></i-tabler>
+            </div>
+        </div>
+        <div class="row p-16">
+            <div class="col-lg-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="Buscar Micro-Rutas" [formControl]="searchTerm" />
+                    <mat-icon matSuffix>
+                        <i-tabler name="search" class="icon-20"></i-tabler>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6" *ngIf="showFilters">
+                <mat-form-field appearance="outline" class="w-100 hide-hint m-b-16">
+                    <mat-select placeholder="Estado">
+                        <mat-option *ngFor="let item of status" [value]="item" selected>{{ item |
+                            nameColumnTable
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 m-b-16" *ngIf="showFilters">
+                <mat-form-field appearance="outline" class="w-100 hide-hint">
+                    <mat-label>Tipo de Microruta</mat-label>
+                    <input matInput />
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 end" *ngIf="showFilters">
+                <button mat-fab extended color="primary" aria-label="Example icon button with a delete icon">
+                    <div class="d-flex align-items-center">
+                        <i-tabler class="icon-20 m-r-4" name="search"></i-tabler><span> Buscar</span>
+                    </div>
+                </button>
+                <button mat-fab extended color="warn" class="m-l-10">
+                    <div class="d-flex align-items-center">
+                        <mat-icon class="icon-20 m-r-4">search_off</mat-icon>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="row  modal-routes-content__card-routes">
+            <div class="col">
+                <ng-scrollbar class="position-relative" style="height:calc(100vh - 300px)">
+                    <div scrollViewport class="row  modal-routes-content__card-routes__body"
+                        *ngFor="let route of filterMicroroutes">
+                        <mat-card class="cardWithShadow">
+                            <mat-card-content>
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img [src]="route.imageMicroRoute" alt="users" width="48" class="rounded" />
+                                        <div class="m-l-16">
+                                            <h6 class="f-s-14 mat-subtitle-1 f-w-600">
+                                                {{ route.name }} - {{route.code}}
+                                            </h6>
+                                            <div class="row m-l-6">
+                                                <span class="mat-body-1 f-s-12">
+                                                    <i-tabler name="route" class="icon-14 m-r-4"></i-tabler>
+                                                    {{ route.macroRouteId }}
+                                                </span>
+                                                <span class="mat-body-1 f-s-12 m-l-16">
+                                                    <i-tabler name="calendar-due" class="icon-14 m-r-4"></i-tabler>
+                                                    {{ route.operationStartDate }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-l-auto end fixed m-r-20 checkbox">
+                                        <mat-checkbox [checked]="route.selected" (change)="addMicroRoutes(route)" *ngIf="showFilters" class="example-margin"></mat-checkbox>
+                                    </div>
+                                    <button *ngIf="!showFilters" color="basic" (click)="sendRoute(route)" mat-mini-fab
+                                        class="m-l-auto">
+                                        <i-tabler color="primary" name="circle-plus" class="icon-18"></i-tabler>
+                                    </button>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+
+        <div class="row p-20" *ngIf="showFilters">
+            <div class="col-lg-6 end" >
+                <button (click)="sendCollections()" mat-button extended color="accent" aria-label="Example icon button with a delete icon">
+                    <div class="d-flex align-items-center">
+                        <i-tabler class="icon-20 m-r-4" name="circle-plus"></i-tabler><span>Agregar</span>
+                    </div>
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>

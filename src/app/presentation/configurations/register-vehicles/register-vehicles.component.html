@@ -1,0 +1,253 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Registrar Vehículo</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1 p-20">
+    <form class="m-t-24 p-24" [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Datos Básicos</ng-template>
+      <div class="row justify-content-between m-b-10">
+        <!-- select -->
+        <div class="col-lg-6 m-b-16">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Propietario
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100 hide-hint">
+            <mat-select placeholder="Propietario" formControlName="propertyOf" required>
+              <mat-option *ngFor="let item of propertyOf" [value]="item.status" selected>{{ item.status }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6 m-b-16">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Asociados
+          </mat-label>
+          <app-modal-associates></app-modal-associates>
+        </div>
+        <div class="col-lg-6">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Bodegas
+          </mat-label>
+          <app-modal-warehouses></app-modal-warehouses>
+        </div>
+      </div>
+      <div class="row justify-content-between m-t-24">
+        <!-- input -->
+        <div class="col-lg-4">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Código
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="code" required />
+            <mat-hint *ngIf="f['code'].touched && f['code'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['minlength']">
+                Debe tener mínimo 6 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['code'].errors && f['code'].errors['pattern']">
+                Solo acepta caracteres alfanúmericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Placa
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="plate" required />
+            <mat-hint *ngIf="f['plate'].touched && f['plate'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['plate'].errors && f['plate'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['plate'].errors && f['plate'].errors['minlength']">
+                Debe tener mínimo 6 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['plate'].errors && f['plate'].errors['pattern']">
+                Solo acepta caracteres alfanúmericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <!-- select -->
+        <div class="col-lg-4">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Tipo de Vehículo
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100 hide-hint">
+            <mat-select placeholder="Tipo de Vehículo" formControlName="code" required>
+              <mat-option *ngFor="let item of typesVehicle" [value]="item.status" selected>{{ item.status
+                }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">
+            Número de Ejes
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="number" matInput formControlName="numAxles" required />
+            <mat-hint *ngIf="f['numAxles'].touched && f['numAxles'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['numAxles'].errors && f['numAxles'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="
+                  f['numAxles'].errors && f['numAxles'].errors['minlength']
+                ">
+                Debe tener mínimo 1 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['numAxles'].errors && f['numAxles'].errors['pattern']">
+                Solo acepta caracteres númericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <h4 class="text-secondary">Dimensiones</h4>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Alto
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="number" matInput formControlName="height" required />
+            <mat-hint *ngIf="f['height'].touched && f['height'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['height'].errors && f['height'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['height'].errors && f['height'].errors['minlength']">
+                Debe tener mínimo 1 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['height'].errors && f['height'].errors['pattern']">
+                Solo acepta caracteres númericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Ancho
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="number" matInput formControlName="width" required />
+            <mat-hint *ngIf="f['width'].touched && f['width'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['width'].errors && f['width'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['width'].errors && f['width'].errors['minlength']">
+                Debe tener mínimo 1 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['width'].errors && f['width'].errors['pattern']">
+                Solo acepta caracteres númericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Largo
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="number" matInput formControlName="lenght" required />
+            <mat-hint *ngIf="f['lenght'].touched && f['lenght'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['lenght'].errors && f['lenght'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="f['lenght'].errors && f['lenght'].errors['minlength']">
+                Debe tener mínimo 1 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['lenght'].errors && f['lenght'].errors['pattern']">
+                Solo acepta caracteres númericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <h4 class="text-secondary">Capacidad</h4>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Capacidad
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="number" matInput formControlName="capacity" required />
+            <mat-hint *ngIf="f['capacity'].touched && f['capacity'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="f['capacity'].errors && f['capacity'].errors['required']">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="
+                  f['capacity'].errors && f['capacity'].errors['minlength']
+                ">
+                Debe tener mínimo 1 caracteres.
+              </div>
+              <div class="text-error" *ngIf="f['capacity'].errors && f['capacity'].errors['pattern']">
+                Solo acepta caracteres númericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">
+            Capacidad Y
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="number" matInput formControlName="capacity_y" required />
+            <mat-hint *ngIf="f['capacity_y'].touched && f['capacity_y'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="
+                  f['capacity_y'].errors && f['capacity_y'].errors['required']
+                ">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="
+                  f['capacity_y'].errors && f['capacity_y'].errors['minlength']
+                ">
+                Debe tener mínimo 1 caracteres.
+              </div>
+              <div class="text-error" *ngIf="
+                  f['capacity_y'].errors && f['capacity_y'].errors['pattern']
+                ">
+                Solo acepta caracteres númericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-label class="mat-subtitle-2 f-w-600 d-block m-b-16">Capacidad M
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="number" matInput formControlName="capacity_m" required />
+            <mat-hint *ngIf="f['capacity_m'].touched && f['capacity_m'].invalid" class="m-b-16 error-msg">
+              <div class="text-error" *ngIf="
+                  f['capacity_m'].errors && f['capacity_m'].errors['required']
+                ">
+                Este campo es obligatorio.
+              </div>
+              <div class="text-error" *ngIf="
+                  f['capacity_m'].errors && f['capacity_m'].errors['minlength']
+                ">
+                Debe tener mínimo 1 caracteres.
+              </div>
+              <div class="text-error" *ngIf="
+                  f['capacity_m'].errors && f['capacity_m'].errors['pattern']
+                ">
+                Solo acepta caracteres númericos.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="roe justify-content-between">
+        <h4 class="text-center">Subir Documento</h4>
+        <div class="file-input-box justify-content-center"  role="button" aria-disabled="true" (keyup.enter)="fileInput.click()"  (click)="fileInput.click()">
+          <input accept=".pdf , .png , .jpg" type="file" #fileInput (change)="selectFile($event)" />
+          <div class="file-upload-content">
+            <i-tabler class="icon-60 m-r-4" name="file-upload"></i-tabler>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="d-flex p-24 bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 justify-content-end text-end"
+      mat-dialog-actions>
+      <button color="primary" mat-raised-button type="button"
+        class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto">
+        Guardar
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
